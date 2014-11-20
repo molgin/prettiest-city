@@ -34,6 +34,11 @@ gem 'spring',        group: :development
 # Use debugger
 # gem 'debugger', group: [:development, :test]
 
+
+gem 'georuby'
+
+gem 'pg'
+
 group :test, :development do
   gem "rspec-rails"
   gem "capybara"
@@ -44,14 +49,14 @@ group :test, :development do
   gem "factory_girl_rails"
   gem "simplecov"
   gem "database_cleaner"
-  gem "sqlite3"
+  # gem "sqlite3"
   gem "pry"
   gem "guard-rspec", require: false
   gem "thin"
 end
 
 group :production do
-  gem "pg"
+  # gem "pg"
   gem "google-analytics-rails"
   gem "rails_12factor"
 end

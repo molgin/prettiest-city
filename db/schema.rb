@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141120204050) do
+ActiveRecord::Schema.define(version: 20141121171513) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -23,6 +23,30 @@ ActiveRecord::Schema.define(version: 20141120204050) do
     t.float    "max_x"
     t.float    "min_y"
     t.float    "max_y"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "matchup_points", force: true do |t|
+    t.integer  "matchup_id"
+    t.integer  "point_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "matchups", force: true do |t|
+    t.integer  "winning_point"
+    t.integer  "losing_point"
+    t.integer  "winning_city"
+    t.integer  "losing_city"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "points", force: true do |t|
+    t.float    "lat"
+    t.float    "long"
+    t.integer  "city_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

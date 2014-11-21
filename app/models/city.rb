@@ -1,7 +1,15 @@
 class City < ActiveRecord::Base
+  has_many :points
+  has_many :matchups, through: :points
+
   attr_accessor :multipolygon
 
   def random_point
+    long, lat = random_coords
+    Point.create(lat: lat, long: long, city_id: self.id)
+  end
+
+  def random_coords
     make_multipolygon
     loop do
       point = GeoRuby::SimpleFeatures::Point.new

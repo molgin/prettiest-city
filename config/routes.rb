@@ -1,6 +1,12 @@
 Rails.application.routes.draw do
 
-  resources :cities
+
+
+  resources :cities do
+    member do
+      get :random
+    end
+  end
   resources :matchups
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

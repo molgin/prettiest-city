@@ -3,14 +3,10 @@ module GeoRuby
   module SimpleFeatures
     
     class MultiPolygon < GeometryCollection
-
       def contains_point?(point)
-        geometries.each do |polygon|
-          if polygon.contains_point?(point)
-            return true
-          end
+        geometries.any? do |polygon|
+          polygon.contains_point?(point)
         end
-        false
       end
 
     end

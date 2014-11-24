@@ -1,72 +1,70 @@
-function initialize() {
-  var city_1_id = $("#city-1").attr("city-id");
-  var city_2_id = $("#city-2").attr("city-id");
-
-  var success = false;
-  // while (!success)
-  for (var i = 0; i < 25; i++) {
-    var coords;
-    $.ajax( "/cities/" + city_1_id + "/random", {
-      dataType: "json",
-      async: false,
-      success: function(response) { coords = response }
-    } );
-
-    // var coords = response;
-    var sv = new google.maps.StreetViewService();
-    var point = new google.maps.LatLng(coords["lat"], coords["long"]);
-    sv.getPanoramaByLocation(point, 50, function(data, status){
-      console.log(coords);
-      if (status == google.maps.StreetViewStatus.OK) {
-        var longitude = data.location.latLng.B
-        var latitude = data.location.latLng.k
-        console.log(latitude + ", " + longitude);
-        // success = true;
-        // break;
-      }
-      else {
-        console.log("fuck");
-      }
-    });
-  }
-
-  // console.log(coords);
-
-  // var sv = new google.maps.StreetViewService();
-
-  // console.log(coords)
-
-
-
-
-
-  // var lat1 = parseFloat($("#pano-1").attr("lat"))
-  // var long1 = parseFloat($("#pano-1").attr("long"))
-
-  // var fenway = new google.maps.LatLng(lat1, long1);
-  // var mapOptions = {
-  //   center: fenway,
-  //   zoom: 14
-  // };
-  // var map = new google.maps.Map(
-      // document.getElementById('map-canvas'), mapOptions);
-  // var panoramaOptions = {
-  //   position: fenway,
-  //   pov: {
-  //     heading: 34,
-  //     pitch: 10
-  //   }
-  // };
-  // var panorama = new google.maps.StreetViewPanorama(document.getElementById('pano-1'), panoramaOptions);
-  // map.setStreetView(panorama);
+function City(id){
+  this.id = id;
+  this.fetchCoordinates();
 }
 
-google.maps.event.addDomListener(window, 'load', initialize);
+City.prototype.fetchCoordinates = function() {
+  $.getJSON("/cities/" + this.id + "/random").success($.proxy(this.coordinatesValid, this));
+}
+
+City.prototype.coordinatesValid = function(coordinates){
+  var sv = new google.maps.StreetViewService();
+  var point = new google.maps.LatLng(coordinates.lat, coordinates.long);
+  sv.getPanoramaByLocation(point, 50, $.proxy(this.handleStuff, this));
+}
+
+City.prototype.handleStuff = function(data, status){
+  if(status === google.maps.StreetViewStatus.OK){
+    this.saveCoordinates(data);
+    this.loadView();
+  }
+  else {
+    this.fetchCoordinates();
+  }
+}
+
+City.prototype.saveCoordinates = function(data) {
+  var longitude = data.location.latLng.B;
+  var latitude = data.location.latLng.k;
+  $("#pano-" + this.id).attr("long", longitude);
+  $("#pano-" + this.id).attr("lat", latitude);
+
+  $("#view-" + this.id)
+
+  // console.log("done with " + this.id);
+}
+
+City.prototype.loadView = function() {
+  // debugger;
+
+  var lat = parseFloat($("#pano-" + this.id).attr("lat"));
+  var long = parseFloat($("#pano-" + this.id).attr("long"));
+
+  var point = new google.maps.LatLng(lat, long);
+  var mapOptions = {
+    center: point,
+    zoom: 14
+  };
+
+  var map = new google.maps.Map(
+      $('#map-canvas-' + this.id)[0], mapOptions);
+
+  var panoramaOptions = {
+    position: point,
+    pov: {
+      heading: 34,
+      pitch: 10
+    }
+  };
+
+  var panorama = new google.maps.StreetViewPanorama($('#pano-' + this.id)[0], panoramaOptions);
+
+  map.setStreetView(panorama);
+
+}
 
 
-// test random coords until valid street view
-// save as point object
-// shovel into matchup
-// repeat for city 2
-
-// on document ready, use jquery to add the shit
+$(function() {
+  new City($("#city-1").attr("city-id"));
+  new City($("#city-2").attr("city-id"));
+})

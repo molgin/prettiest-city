@@ -1,9 +1,61 @@
 <h2 id="city-1" city-id="<%= @city_1.id %>" ><%= @city_1.name %></h2>
 <h2 id="city-2" city-id="<%= @city_2.id %>" ><%= @city_2.name %></h2>
 
-<h2><%#= "#{@matchup.points.first.lat}, #{@matchup.points.first.long}" %></h2>
-
-<h2><%#= "#{@matchup.points.last.lat}, #{@matchup.points.last.long}" %></h2>
 
 
-<div id="pano-1" style="position:absolute; left:410px; top: 8px; width: 800px; height: 600px;" lat="<%#= @matchup.points.first.lat %>" long="<%#= @matchup.points.first.long %>"></div>
+<div id="map-canvas-1"></div>
+
+<div id="map-canvas-2"></div>
+
+<section class="views">
+
+  <section id="view-1">
+    <div id="pano-1" style="position:absolute; left:10px; top: 200px; width: 800px; height: 600px;">
+      <div class="spinner">
+        <div class="double-bounce1"></div>
+        <div class="double-bounce2"></div>
+      </div>
+    </div>
+
+    <%= form_for Matchup.new do |f| %>
+      <%= f.hidden_field :winning_city, {value: @city_1.id} %>
+      <%= f.hidden_field :losing_city, {value: @city_2.id} %>
+      <%= f.fields_for :winning_coords do |wf| %>
+        <%= wf.hidden_field :lat %>
+        <%= wf.hidden_field :long %>
+      <% end %>
+      <%= f.fields_for :losing_coords do |lf| %>
+        <%= lf.hidden_field :lat %>
+        <%= lf.hidden_field :long %>
+      <% end %>
+      <%= f.submit "Vote" %>
+    <% end %>
+
+  </section>
+
+  <section id="view-2">
+    <div id="pano-2" style="position:absolute; left:820px; top: 200px; width: 800px; height: 600px;">
+      <div class="spinner">
+        <div class="double-bounce1"></div>
+        <div class="double-bounce2"></div>
+      </div>
+    </div>
+
+    <%= form_for Matchup.new do |f| %>
+      <%= f.hidden_field :winning_city, {value: @city_2.id} %>
+      <%= f.hidden_field :losing_city, {value: @city_1.id} %>
+      <%= f.fields_for :winning_coords do |wf| %>
+        <%= wf.hidden_field :lat %>
+        <%= wf.hidden_field :long %>
+      <% end %>
+      <%= f.fields_for :losing_coords do |lf| %>
+        <%= lf.hidden_field :lat %>
+        <%= lf.hidden_field :long %>
+      <% end %>
+      <%= f.submit "Vote" %>
+    <% end %>
+
+  </section>
+
+
+</section>

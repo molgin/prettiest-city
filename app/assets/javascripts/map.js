@@ -1,14 +1,7 @@
 function City(id, which){
   this.id = id;
   this.which = which;
-
-  if (which === 1) {
-    this.other = 2;
-  }
-  else if (which === 2) {
-    this.other = 1;
-  }
-
+  this.other = ( which === 1 ? 2 : 1 );
 
   this.fetchCoordinates();
 }
@@ -42,11 +35,8 @@ City.prototype.saveCoordinates = function(data) {
   $("#view-" + this.which + " input#matchup_winning_coords_lat").val(latitude);
   $("#view-" + this.which + " input#matchup_winning_coords_long").val(longitude);
 
-
   $("#view-" + this.other + " input#matchup_losing_coords_lat").val(latitude);
   $("#view-" + this.other + " input#matchup_losing_coords_long").val(longitude);
-
-  // console.log("done with " + this.which);
 }
 
 City.prototype.loadView = function() {
@@ -80,6 +70,13 @@ City.prototype.loadView = function() {
 
 
 $(function() {
+  maybeSwapViews();
   new City($("#city-1").attr("city-id"), 1);
   new City($("#city-2").attr("city-id"), 2);
 })
+
+function maybeSwapViews() {
+  if (Math.floor(Math.random() * 2)) {
+    $("section#view-1").before($("section#view-2"));
+  }
+}

@@ -1,5 +1,15 @@
-function City(id){
+function City(id, which){
   this.id = id;
+  this.which = which;
+
+  if (which === 1) {
+    this.other = 2;
+  }
+  else if (which === 2) {
+    this.other = 1;
+  }
+
+
   this.fetchCoordinates();
 }
 
@@ -26,19 +36,24 @@ City.prototype.handleStuff = function(data, status){
 City.prototype.saveCoordinates = function(data) {
   var longitude = data.location.latLng.B;
   var latitude = data.location.latLng.k;
-  $("#pano-" + this.id).attr("long", longitude);
-  $("#pano-" + this.id).attr("lat", latitude);
+  $("#pano-" + this.which).attr("long", longitude);
+  $("#pano-" + this.which).attr("lat", latitude);
 
-  $("#view-" + this.id)
+  $("#view-" + this.which + " input#matchup_winning_coords_lat").val(latitude);
+  $("#view-" + this.which + " input#matchup_winning_coords_long").val(longitude);
 
-  // console.log("done with " + this.id);
+
+  $("#view-" + this.other + " input#matchup_losing_coords_lat").val(latitude);
+  $("#view-" + this.other + " input#matchup_losing_coords_long").val(longitude);
+
+  // console.log("done with " + this.which);
 }
 
 City.prototype.loadView = function() {
   // debugger;
 
-  var lat = parseFloat($("#pano-" + this.id).attr("lat"));
-  var long = parseFloat($("#pano-" + this.id).attr("long"));
+  var lat = parseFloat($("#pano-" + this.which).attr("lat"));
+  var long = parseFloat($("#pano-" + this.which).attr("long"));
 
   var point = new google.maps.LatLng(lat, long);
   var mapOptions = {
@@ -47,7 +62,7 @@ City.prototype.loadView = function() {
   };
 
   var map = new google.maps.Map(
-      $('#map-canvas-' + this.id)[0], mapOptions);
+      $('#map-canvas-' + this.which)[0], mapOptions);
 
   var panoramaOptions = {
     position: point,
@@ -57,7 +72,7 @@ City.prototype.loadView = function() {
     }
   };
 
-  var panorama = new google.maps.StreetViewPanorama($('#pano-' + this.id)[0], panoramaOptions);
+  var panorama = new google.maps.StreetViewPanorama($('#pano-' + this.which)[0], panoramaOptions);
 
   map.setStreetView(panorama);
 
@@ -65,6 +80,6 @@ City.prototype.loadView = function() {
 
 
 $(function() {
-  new City($("#city-1").attr("city-id"));
-  new City($("#city-2").attr("city-id"));
+  new City($("#city-1").attr("city-id"), 1);
+  new City($("#city-2").attr("city-id"), 2);
 })

@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
 
-
+  root 'matchups#index'
 
   resources :cities do
     member do

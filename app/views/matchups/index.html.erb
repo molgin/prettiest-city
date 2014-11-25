@@ -30,7 +30,7 @@
         </div>
       </div>
 
-      <%= form_for Matchup.new do |f| %>
+      <%= form_for Matchup.new, remote: true, authenticity_token: true do |f| %>
         <%= f.hidden_field :city_1, {value: @city_1.id} %>
         <%= f.hidden_field :city_2, {value: @city_2.id} %>
         <%= f.hidden_field :winning_city, {value: @city_1.id} %>
@@ -56,7 +56,7 @@
         </div>
       </div>
 
-      <%= form_for Matchup.new do |f| %>
+      <%= form_for Matchup.new, remote: true, authenticity_token: true do |f| %>
         <%= f.hidden_field :city_1, {value: @city_1.id} %>
         <%= f.hidden_field :city_2, {value: @city_2.id} %>
         <%= f.hidden_field :winning_city, {value: @city_2.id} %>

@@ -2,11 +2,12 @@ class Matchup < ActiveRecord::Base
   has_many :matchup_points
   has_many :points, through: :matchup_points
   has_many :cities, through: :points
+  validate :cities_must_be_different
 
-  # def build_points_from_cities(city_1, city_2)
-  #   points << city_1.random_point
-  #   points << city_2.random_point
-  #   save
-  # end
+  def cities_must_be_different
+    if winning_city == losing_city
+      errors.add(:winning_city, "cities must be different")
+    end
+  end
 
 end

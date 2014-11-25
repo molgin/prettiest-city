@@ -1,6 +1,7 @@
 class City < ActiveRecord::Base
   has_many :points
   has_many :matchups, through: :points
+  has_many :competitors, ->(city) { where.not(id: city.id).group("cities.id") }, through: :matchups, class_name: "City", source: :cities
   belongs_to :state
   before_save :set_slug
 
@@ -89,6 +90,38 @@ class City < ActiveRecord::Base
 
   def win_percentage_display
     "#{win_percentage}%"
+  end
+
+  def winning_matchups_against(competitor)
+    matchups.where(losing_city: competitor.id).where(winning_city: id)
+  end
+
+  def wins_against(competitor)
+    winning_matchups_against(competitor).count
+  end
+
+  def losing_matchups_against(competitor)
+    matchups.where(winning_city: competitor.id).where(losing_city: id)
+  end
+
+  def losses_against(competitor)
+    losing_matchups_against(competitor).count
+  end
+
+  def total_against(competitor)
+    wins_against(competitor) + losses_against(competitor)
+  end
+
+  def win_ratio_against(competitor)
+    wins_against(competitor) / total_against(competitor).to_f
+  end
+
+  def win_percentage_against(competitor)
+    (win_ratio_against(competitor) * 100).round(1)
+  end
+
+  def win_percentage_display_against(competitor)
+    "#{win_percentage_against(competitor)}%"
   end
 
 end

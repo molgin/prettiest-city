@@ -79,9 +79,10 @@ City.prototype.loadView = function() {
 
 
 $(function() {
+  enhanceMatchupChooser();
   maybeSwapViews();
-  new City($("#city-1").attr("city-id"), 1);
-  new City($("#city-2").attr("city-id"), 2);
+  new City($("span#city-1").attr("city-id"), 1);
+  new City($("span#city-2").attr("city-id"), 2);
 })
 
 function maybeSwapViews() {
@@ -89,3 +90,13 @@ function maybeSwapViews() {
     $("section#view-1").before($("section#view-2"));
   }
 }
+
+function enhanceMatchupChooser() {
+  var $chooser = $("form#matchup-chooser")
+  $chooser.find("input.submit").hide();
+  var $citySelect = $chooser.find("select");
+  $citySelect.change(function(){
+    $chooser.submit();
+  });
+}
+

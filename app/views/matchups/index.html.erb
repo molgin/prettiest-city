@@ -1,3 +1,15 @@
+<%= form_tag(matchups_path, method: "get", id: "matchup-chooser") do %>
+  <select name="city_1">
+    <%= options_from_collection_for_select(City.all, :id, :name, @city_1.id) %>
+  </select>
+  vs.
+  <select name="city_2">
+    <%= options_from_collection_for_select(City.all, :id, :name, @city_2.id) %>
+  </select>
+  <%= submit_tag "Go", class: "submit" %>
+<% end %>
+
+
 <h1 class="text-center" style="color: darkblue"><span id="city-1" city-id="<%= @city_1.id %>" ><%= @city_1.name %></span> vs. <span id="city-2" city-id="<%= @city_2.id %>" ><%= @city_2.name %></span></h1>
 
 

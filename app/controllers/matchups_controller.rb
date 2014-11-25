@@ -1,10 +1,12 @@
 class MatchupsController < ApplicationController
 
   def index
-    @city_1 = City.find_by(name: "New York")
-    @city_2 = City.find_by(name: "San Francisco")
-    # @matchup = Matchup.new
-    # @matchup.build_points_from_cities(@city_1, @city_2)
+    if params[:city_1] && params[:city_2]
+      redirect_to "/matchups/#{params[:city_1]}/#{params[:city_2]}"
+    else
+      @city_1 = City.find_by(name: "New York")
+      @city_2 = City.find_by(name: "San Francisco")
+    end
   end
 
   def create
@@ -27,7 +29,11 @@ class MatchupsController < ApplicationController
   def show
     @city_1 = City.find(params[:first_id])
     @city_2 = City.find(params[:second_id])
-    render :index
+    if @city_2 != @city_1
+      render :index
+    else
+      redirect_to root_path
+    end
   end
 
 

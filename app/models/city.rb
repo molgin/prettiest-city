@@ -43,6 +43,7 @@ class City < ActiveRecord::Base
       ys = city.geometry.bounding_box.map { |point| point.y }
       new_city.min_x, new_city.max_x = xes.sort
       new_city.min_y, new_city.max_y = ys.sort
+      new_city.state = State.find_by(name: args[:state])
       new_city.save
     end
     last

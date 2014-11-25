@@ -35,7 +35,7 @@ gem 'spring',        group: :development
 # gem 'debugger', group: [:development, :test]
 
 
-gem 'georuby'
+gem 'georuby', '>= 2.3.0'
 gem 'dbf'
 
 gem 'pg'

@@ -1,13 +1,42 @@
 <h1><%= @city.name %></h1>
 
-<ul>
-  <li>Total Matches: <%= @city.total %></li>
-  <br>
-  <li>Winning Percentage: <%= @city.win_percentage_display %></li>
-  <br>
-  <li>Record: <%= "#{@city.wins} — #{@city.losses}" %></li>
-</ul>
+<% if @city.has_matchups? %>
 
-<h2>Most Recent Winner</h2>
+  <ul>
+    <li>Total Matches: <%= @city.total %></li>
+    <br>
+    <li>Winning Percentage: <%= @city.win_percentage_display %></li>
+    <br>
+    <li>Record: <%= "#{@city.wins} — #{@city.losses}" %></li>
+  </ul>
 
-<img src ="https://maps.googleapis.com/maps/api/streetview?size=400x400&location=40.720032,-73.988354&fov=90&heading=235&pitch=10">
+
+  <!-- 
+    <h2>Most Recent Winner(s)</h2>
+
+      <#% @winning_coords.each do |pair| %>
+        <img src ="https://maps.googleapis.com/maps/api/streetview?size=400x400&location=<%#= pair.first %>,<%#= pair.last %>&fov=90&heading=34&pitch=10">
+    <#% end %> -->
+
+  <h2>Recent Matchups</h2>
+
+  <ul>
+
+    <% @city.recent_matchups(10).each do |matchup| %>
+      <% point = matchup.point_by_city(@city) %>
+      <% competitor = matchup.competitor(point) %>
+    <li>
+      <strong><img src ="https://maps.googleapis.com/maps/api/streetview?size=400x400&location=<%= point.coords.first %>,<%= point.coords.last %>&fov=90&heading=34&pitch=10"> <%= point.street_address %>, <%= @city.name %></strong> <%= (matchup.won?(@city) ? "beat" : "lost to") %> <img src ="https://maps.googleapis.com/maps/api/streetview?size=400x400&location=<%= competitor.coords.first %>,<%= competitor.coords.last %>&fov=90&heading=34&pitch=10"> <strong><%= competitor.street_address %>, <%= competitor.city.name %></strong>
+    </li>
+
+    <% end %>
+
+  </ul>
+
+
+
+<% else %>
+
+  <h3><%= @city.name %> hasn't had any matchups yet!</h3>
+
+<% end %>

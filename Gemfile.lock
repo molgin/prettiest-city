@@ -73,6 +73,7 @@ GEM
     fastercsv (1.5.5)
     ffi (1.9.6)
     formatador (0.2.5)
+    geocoder (1.2.6)
     georuby (2.3.0)
     google-analytics-rails (0.0.6)
     guard (2.8.2)
@@ -230,6 +231,7 @@ DEPENDENCIES
   database_cleaner
   dbf
   factory_girl_rails
+  geocoder
   georuby (>= 2.3.0)
   google-analytics-rails
   guard-rspec

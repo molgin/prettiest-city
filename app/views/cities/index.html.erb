@@ -1,3 +1,13 @@
+<h1>Global City Rankings</h1>
 
-    <div id="map-canvas" style="width: 400px; height: 300px"></div>
-    <div id="pano" style="position:absolute; left:410px; top: 8px; width: 400px; height: 300px;"></div>
+<ol>
+
+<% City.sort_by_win_ratio.each do |city| %>
+
+  <li>
+    <strong><%= city.name %>, <%= city.state.abbr if city.state %></strong><br>won <%= city.win_percentage_display %> of <%= city.total %> matchups
+  </li>
+
+<% end %>
+
+</ol>

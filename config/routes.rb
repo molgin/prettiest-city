@@ -7,7 +7,9 @@ Rails.application.routes.draw do
       get :random
     end
   end
-  resources :matchups
+
+  get "/random", to: "matchups#random"
+  get "matchups/random", to: "matchups#random"
 
   resources :matchups, param: 'first_id/:second_id'
   # The priority is based upon order of creation: first created -> highest priority.

@@ -124,4 +124,51 @@ class City < ActiveRecord::Base
     "#{win_percentage_against(competitor)}%"
   end
 
+  def competitors_by_win_ratio
+    competitors.sort_by{ |competitor| win_ratio_against(competitor) }
+  end
+
+  def winning_point_ids
+    self.winning_matchups.collect do |m|
+      m.winning_point
+    end
+  end
+
+  def get_winning_point_coords
+    all_coords = self.winning_point_ids.collect do |point|
+      Point.find(point).coords
+    end
+    all_coords.reverse #can limit number of images here
+  end
+
+  def has_matchups?
+    matchups.count > 0
+  end
+
+  def recent_matchups(num)
+    matchups.order(created_at: :desc).limit(num)
+  end
+
+  def recent_points(num)
+    points.order(updated_at: :desc).limit(num)
+  end
+
+
+
+
+
+
+
+
+
+  def self.ranked
+    joins(:matchups).group("cities.id")
+  end
+
+  def self.sort_by_win_ratio
+    ranked.sort_by{ |city| city.win_ratio }.reverse
+  end
+
+
+
 end

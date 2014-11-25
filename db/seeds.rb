@@ -86,7 +86,9 @@ city_2 = City.create(
   )
 
 city_1.state = state_1
+city_1.save
 city_2.state = state_2
+city_2.save
 
 City.create_by_city_and_state(city: "Los Angeles", state: "California")
 City.create_by_city_and_state(city: "Chicago", state: "Illinois")

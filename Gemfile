@@ -37,6 +37,7 @@ gem 'spring',        group: :development
 
 gem 'georuby', '>= 2.3.0'
 gem 'dbf'
+gem 'geocoder'
 
 gem 'pg'
 

@@ -3,6 +3,7 @@ class Matchup < ActiveRecord::Base
   has_many :points, through: :matchup_points
   has_many :cities, through: :points
   validate :cities_must_be_different
+  belongs_to :user
 
   def cities_must_be_different
     if winning_city == losing_city

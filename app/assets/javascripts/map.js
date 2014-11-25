@@ -13,10 +13,10 @@ City.prototype.fetchCoordinates = function() {
 City.prototype.coordinatesValid = function(coordinates){
   var sv = new google.maps.StreetViewService();
   var point = new google.maps.LatLng(coordinates.lat, coordinates.long);
-  sv.getPanoramaByLocation(point, 50, $.proxy(this.handleStuff, this));
+  sv.getPanoramaByLocation(point, 100, $.proxy(this.checkStatus, this));
 }
 
-City.prototype.handleStuff = function(data, status){
+City.prototype.checkStatus = function(data, status){
   if(status === google.maps.StreetViewStatus.OK){
     this.saveCoordinates(data);
     this.loadView();
@@ -37,6 +37,8 @@ City.prototype.saveCoordinates = function(data) {
 
   $("#view-" + this.other + " input#matchup_losing_coords_lat").val(latitude);
   $("#view-" + this.other + " input#matchup_losing_coords_long").val(longitude);
+
+  $("#view-" + this.which + " div.spinner").remove();
 }
 
 City.prototype.loadView = function() {

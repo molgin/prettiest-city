@@ -1,0 +1,13 @@
+<h1><%= @city.name %></h1>
+
+<ul>
+  <li>Total Matches: <%= @city.total %></li>
+  <br>
+  <li>Winning Percentage: <%= @city.win_percentage_display %></li>
+  <br>
+  <li>Record: <%= "#{@city.wins} — #{@city.losses}" %></li>
+</ul>
+
+<h2>Most Recent Winner</h2>
+
+<img src ="https://maps.googleapis.com/maps/api/streetview?size=400x400&location=40.720032,-73.988354&fov=90&heading=235&pitch=10">

@@ -21,6 +21,13 @@ class MatchupsController < ApplicationController
     redirect_to root_path
   end
 
+  
+  def show
+    @city_1 = City.find(params[:first_id])
+    @city_2 = City.find(params[:second_id])
+    render :index
+  end
+
 
   private
   def matchup_params

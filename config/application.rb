@@ -12,6 +12,7 @@ require "sprockets/railtie"
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
+require 'geo_ruby/shp'
 
 module PrettiestCity
   class Application < Rails::Application

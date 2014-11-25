@@ -36,6 +36,7 @@ gem 'spring',        group: :development
 
 
 gem 'georuby'
+gem 'dbf'
 
 gem 'pg'
 

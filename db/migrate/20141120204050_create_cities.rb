@@ -7,6 +7,8 @@ class CreateCities < ActiveRecord::Migration
       t.float :max_x
       t.float :min_y
       t.float :max_y
+      t.integer :state_id
+      t.string :slug
 
       t.timestamps
     end

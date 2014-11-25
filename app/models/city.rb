@@ -1,8 +1,14 @@
 class City < ActiveRecord::Base
   has_many :points
   has_many :matchups, through: :points
+  belongs_to :state
+  before_save :set_slug
 
   attr_accessor :multipolygon
+
+  def set_slug
+    self.slug = name.downcase.split.join("-")
+  end
 
   def random_point
     long, lat = random_coords
@@ -35,9 +41,13 @@ class City < ActiveRecord::Base
     state_shapefile = Dir[state_folder + "/*"].find { |filename| filename.end_with? "shp" }
 
     GeoRuby::Shp4r::ShpFile.open(state_shapefile) do |shp|
-      city = shp.find { |city| city.data.name.downcase == args[:city].downcase}
+      city = shp.find { |city| city.data.name.downcase == args[:city].downcase || ( city.data.name.downcase.end_with?("(balance)") && city.data.name.downcase.start_with?(args[:city].downcase) ) }
       return "City not found" if !city
-      new_city = City.create(name: city.data.name)
+      if city.data.name.downcase.end_with? "(balance)"
+        new_city = City.create(name: args[:city])
+      else
+        new_city = City.create(name: city.data.name)
+      end
       new_city.multipolygon_json = city.geometry.to_json
       xes = city.geometry.bounding_box.map { |point| point.x }
       ys = city.geometry.bounding_box.map { |point| point.y }

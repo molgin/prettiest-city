@@ -19,6 +19,8 @@
       </div>
 
       <%= form_for Matchup.new do |f| %>
+        <%= f.hidden_field :city_1, {value: @city_1.id} %>
+        <%= f.hidden_field :city_2, {value: @city_2.id} %>
         <%= f.hidden_field :winning_city, {value: @city_1.id} %>
         <%= f.hidden_field :losing_city, {value: @city_2.id} %>
         <%= f.fields_for :winning_coords do |wf| %>
@@ -43,6 +45,8 @@
       </div>
 
       <%= form_for Matchup.new do |f| %>
+        <%= f.hidden_field :city_1, {value: @city_1.id} %>
+        <%= f.hidden_field :city_2, {value: @city_2.id} %>
         <%= f.hidden_field :winning_city, {value: @city_2.id} %>
         <%= f.hidden_field :losing_city, {value: @city_1.id} %>
         <%= f.fields_for :winning_coords do |wf| %>

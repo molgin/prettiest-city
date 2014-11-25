@@ -61,7 +61,14 @@ City.prototype.loadView = function() {
     pov: {
       heading: 34,
       pitch: 10
-    }
+    },
+    addressControl: false,
+    linksControl: false,
+    panControl: false,
+    zoomControlOptions: {
+      style: google.maps.ZoomControlStyle.SMALL
+    },
+    enableCloseButton: false
   };
 
   var panorama = new google.maps.StreetViewPanorama($('#pano-' + this.which)[0], panoramaOptions);

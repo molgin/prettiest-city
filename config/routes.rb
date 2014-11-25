@@ -1,6 +1,11 @@
 Rails.application.routes.draw do
 
   root 'matchups#index'
+  get '/auth/:provider/callback', to: 'sessions#create'
+
+  resources :users
+  get '/logout' => 'sessions#destroy', :as => :signout
+ 
 
   resources :cities do
     member do

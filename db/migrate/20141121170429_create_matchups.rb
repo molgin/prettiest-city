@@ -5,6 +5,7 @@ class CreateMatchups < ActiveRecord::Migration
       t.integer :losing_point
       t.integer :winning_city
       t.integer :losing_city
+      t.integer :user_id
 
       t.timestamps
     end

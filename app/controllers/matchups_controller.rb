@@ -1,7 +1,7 @@
 class MatchupsController < ApplicationController
 
   def index
-    @city_1 = City.find_by(name: "New York City")
+    @city_1 = City.find_by(name: "New York")
     @city_2 = City.find_by(name: "San Francisco")
     # @matchup = Matchup.new
     # @matchup.build_points_from_cities(@city_1, @city_2)
@@ -12,6 +12,7 @@ class MatchupsController < ApplicationController
     @city_1 = City.find(matchup_params[:winning_city])
     @city_2 = City.find(matchup_params[:losing_city])
     @matchup = Matchup.new
+    @matchup.user_id = current_user[:id]
     @matchup.winning_city = matchup_params[:winning_city]
     @matchup.losing_city = matchup_params[:losing_city]
     winning_point = @matchup.points.build(lat: matchup_params[:winning_coords][:lat], long: matchup_params[:winning_coords][:long], city_id: matchup_params[:winning_city])
@@ -20,6 +21,7 @@ class MatchupsController < ApplicationController
     @matchup.winning_point = winning_point.id
     @matchup.losing_point = losing_point.id
     @matchup.save
+    # binding.pry
     redirect_to "/matchups/#{@city_1.id}/#{@city_2.id}"
   end
 

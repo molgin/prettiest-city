@@ -63,6 +63,34 @@ class City < ActiveRecord::Base
     matchups.where(winning_city: id)
   end
 
+  def winning_points
+    self.winning_matchups.collect do |m|
+      m.winning_point
+    end
+  end
+
+  def get_winning_point_coords
+  #   if self.winning_points.length <= 5
+  #     all_coords = self.winning_points.collect do |point|
+  #       indiv_coords = []
+  #       indiv_coords << Point.find(point).lat
+  #       indiv_coords << Point.find(point).long
+  #     end
+  #   end
+  # else
+  #   i = 5
+  #   while (i > 0)
+      all_coords = self.winning_points.collect do |point|
+        indiv_coords = []
+        indiv_coords << Point.find(point).lat
+        indiv_coords << Point.find(point).long
+      end
+    #   i -= 1
+    # end
+    all_coords.reverse #can limit number of images here
+  end
+
+
   def losing_matchups
     matchups.where(losing_city: id)
   end

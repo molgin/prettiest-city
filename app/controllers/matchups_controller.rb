@@ -1,7 +1,7 @@
 class MatchupsController < ApplicationController
 
   def index
-    @city_1 = City.find_by(name: "New York City")
+    @city_1 = City.find_by(name: "New York")
     @city_2 = City.find_by(name: "San Francisco")
     # @matchup = Matchup.new
     # @matchup.build_points_from_cities(@city_1, @city_2)
@@ -23,7 +23,7 @@ class MatchupsController < ApplicationController
     redirect_to "/matchups/#{@city_1.id}/#{@city_2.id}"
   end
 
-  
+
   def show
     @city_1 = City.find(params[:first_id])
     @city_2 = City.find(params[:second_id])

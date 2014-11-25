@@ -14,6 +14,7 @@ class CitiesController < ApplicationController
 
   def show
     @city = City.find(params[:id])
+    @winning_coords = @city.get_winning_point_coords
   end
 
 end

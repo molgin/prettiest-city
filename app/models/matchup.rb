@@ -10,3 +10,4 @@ class Matchup < ActiveRecord::Base
   # end
 
 end
+

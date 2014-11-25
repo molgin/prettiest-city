@@ -8,6 +8,12 @@
   <li>Record: <%= "#{@city.wins} — #{@city.losses}" %></li>
 </ul>
 
-<h2>Most Recent Winner</h2>
+<!-- Endlose in IF STATEMENT -->
 
-<img src ="https://maps.googleapis.com/maps/api/streetview?size=400x400&location=40.720032,-73.988354&fov=90&heading=235&pitch=10">
+  <h2>Most Recent Winner(s)</h2>
+
+    <% @winning_coords.each do |pair| %>
+      <img src ="https://maps.googleapis.com/maps/api/streetview?size=400x400&location=<%= pair.first %>,<%= pair.last %>&fov=90&heading=34&pitch=10">
+  <% end %>
+
+<!-- END IF STATEMENT -->

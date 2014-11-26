@@ -23,8 +23,8 @@ class Point < ActiveRecord::Base
     matchups.last.winning_point == id
   end
 
-  # def competitor_in(matchup)
-  #   competitors
-  # end
+  def competitor
+    competitors.last
+  end
 
 end

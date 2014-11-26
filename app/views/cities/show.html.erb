@@ -1,46 +1,52 @@
-<h1><%= @city.full_name %></h1>
+<section class="container-fluid">
 
-<% if @city.has_matchups? %>
+  <h1 class="text-center"><%= @city.full_name %></h1>
 
-  <ul>
-    <li>Total Matches: <%= @city.total %></li>
-    <br>
-    <li>Winning Percentage: <%= @city.win_percentage_display %></li>
-    <br>
-    <li>Record: <%= "#{@city.wins} — #{@city.losses}" %></li>
-  </ul>
+  <% if @city.has_matchups? %>
+    <section class="row center-block">
 
+      <div class="col-md-1"></div>
+      <section id="stats" class="col-md-3">
+        <h2>Stats</h2>
+        <ul>
+          <li>Total Matches: <%= @city.total %></li>
+          <br>
+          <li>Winning Percentage: <%= @city.win_percentage_display %></li>
+          <br>
+          <li>Record: <%= "#{@city.wins} — #{@city.losses}" %></li>
+        </ul>
+      </section>
 
-  <!-- 
-    <h2>Most Recent Winner(s)</h2>
+      <section id="map" class="col-md-6">
+        <div id="map-container" style="height: 450px; width: 600px; border-radius: 16px 16px; border-color: #fff; border-style: solid; box-shadow: 2px 2px 10px #B1B1B1; margin-top: 25px; border-width: 7px;">
+          <div id="map-canvas" style="height: 436px; width: 100%;"></div>
+        </div>
+      </section>
+    </section>
+    <section class="row center-block">
+      <div class="col-sm-1"></div>
+      <section id="recent-matchups" class="col-md-11">
+        <h2>Recent Matchups</h2>
 
-      <#% @winning_coords.each do |pair| %>
-        <img src ="https://maps.googleapis.com/maps/api/streetview?size=400x400&location=<%#= pair.first %>,<%#= pair.last %>&fov=90&heading=34&pitch=10">
-    <#% end %> -->
+        <ul>
 
-  <div id="map-container" style="height: 450px; width: 600px; border-radius: 16px 16px; border-color: #fff; border-style: solid; box-shadow: 2px 2px 10px #B1B1B1; margin-top: 25px; border-width: 7px;">
-    <div id="map-canvas" style="height: 436px; width: 100%;"></div>
-  </div>
+          <% @city.recent_matchups(10).each do |matchup| %>
+            <% point = matchup.point_by_city(@city) %>
+            <% competitor = matchup.competitor(point) %>
+          <li>
+            <strong><%= image_tag point.image_link(200) %> <%= link_to "#{point.street_address}, #{point.city.name}", point_path(point) %></strong> <%= (matchup.won?(@city) ? "beat" : "lost to") %> <%= image_tag competitor.image_link(200) %> <strong><%= link_to "#{competitor.street_address}, #{competitor.city.name}", point_path(competitor) %></strong>
+          </li>
 
-  <h2>Recent Matchups</h2>
+          <% end %>
 
-  <ul>
+        </ul>
+      </section>
+    </section>
 
-    <% @city.recent_matchups(10).each do |matchup| %>
-      <% point = matchup.point_by_city(@city) %>
-      <% competitor = matchup.competitor(point) %>
-    <li>
-      <strong><%= image_tag point.image_link(250) %> <%= link_to "#{point.street_address}, #{point.city.name}", point_path(point) %></strong> <%= (matchup.won?(@city) ? "beat" : "lost to") %> <%= image_tag competitor.image_link(250) %> <strong><%= link_to "#{competitor.street_address}, #{competitor.city.name}", point_path(competitor) %></strong>
-    </li>
+  <% else %>
 
-    <% end %>
+    <h3><%= @city.name %> hasn't had any matchups yet!</h3>
 
-  </ul>
+  <% end %>
 
-
-
-<% else %>
-
-  <h3><%= @city.name %> hasn't had any matchups yet!</h3>
-
-<% end %>
+</section>

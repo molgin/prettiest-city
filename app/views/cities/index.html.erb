@@ -1,13 +1,21 @@
-<h1>Global City Rankings</h1>
+<section class="container-fluid">
+  <div class="col-md-1"></div>
 
-<ol>
+  <section id="rankings" class="center-block col-md-4">
 
-<% City.sort_by_win_ratio.each do |city| %>
+    <h1>Global City Rankings</h1>
 
-  <li>
-    <strong><%= link_to city.full_name, city_path(city) %></strong><br>won <%= city.win_percentage_display %> of <%= city.total %> matchups
-  </li>
+    <ol>
 
-<% end %>
+    <% City.sort_by_win_ratio.each do |city| %>
 
-</ol>
+      <li>
+        <strong><%= link_to city.full_name, city_path(city) %></strong><br>won <%= city.win_percentage_display %> of <%= city.total %> matchups
+      </li>
+
+    <% end %>
+
+    </ol>
+  </section>
+
+</section>

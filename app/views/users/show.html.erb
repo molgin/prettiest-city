@@ -1,32 +1,38 @@
-<h1><%= @user.name if @user.name %></h1>
+<section class="container-fluid">
 
+  <h1 class="text-center"><%= @user.name if @user.name %></h1>
 
-<% if @winning_cities %>
-<ul><% @winning_cities.uniq.each do |city| %>
-  <li><%= (City.find(city)).name + " - " + @winning_cities.count(city).to_s %></li>
-  <% end %>
-</ul>
-<% end %>
+  <section class="row center-block">
 
-<h2>My Cities</h2>
-<ul>
-<% @user.cities.each do |city| %>
-  <li>
-    <%= link_to city.full_name, city_path(city) %>
-  </li>
-<% end %>
-</ul>
+    <div class="col-md-3"></div>
 
-<h2>My Rankings</h2>
+    <section id="my-cities" class="col-md-3">
+      <h2>My Cities</h2>
+      <ul>
+      <% @user.cities.each do |city| %>
+        <li>
+          <%= link_to city.full_name, city_path(city) %>
+        </li>
+      <% end %>
+      </ul>
+    </section>
 
-<ol>
+    <section id="my-rankings" class="col-md-3">
+      <h2>My Rankings</h2>
 
-  <% @user.cities_by_win_ratio.each do |city| %>
+      <ol>
 
-    <li>
-      <strong><%= link_to city.full_name, city_path(city) %></strong><br>won <%= city.win_percentage_display_by_user(@user) %> of <%= city.total_by_user(@user) %> matchups
-    </li>
+        <% @user.cities_by_win_ratio.each do |city| %>
 
-  <% end %>
+          <li>
+            <strong><%= link_to city.full_name, city_path(city) %></strong><br>won <%= city.win_percentage_display_by_user(@user) %> of <%= city.total_by_user(@user) %> matchups
+          </li>
 
-</ol>
+        <% end %>
+
+      </ol>
+    </section>
+
+  </section>
+
+</section>

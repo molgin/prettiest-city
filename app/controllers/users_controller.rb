@@ -10,7 +10,7 @@ class UsersController < ApplicationController
         redirect_to root_path
       else
         @user = current_user
-        @winning_cities = @user.get_winning_cities
+        # @winning_cities = @user.get_winning_cities
       end
     else
       redirect_to root_path

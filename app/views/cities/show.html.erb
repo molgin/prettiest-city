@@ -30,7 +30,7 @@
       <% point = matchup.point_by_city(@city) %>
       <% competitor = matchup.competitor(point) %>
     <li>
-      <strong><img src ="https://maps.googleapis.com/maps/api/streetview?size=400x400&location=<%= point.coords.first %>,<%= point.coords.last %>&fov=90&heading=34&pitch=10"> <%= point.street_address %>, <%= @city.name %></strong> <%= (matchup.won?(@city) ? "beat" : "lost to") %> <img src ="https://maps.googleapis.com/maps/api/streetview?size=400x400&location=<%= competitor.coords.first %>,<%= competitor.coords.last %>&fov=90&heading=34&pitch=10"> <strong><%= competitor.street_address %>, <%= competitor.city.name %></strong>
+      <strong><img src ="https://maps.googleapis.com/maps/api/streetview?size=400x400&location=<%= point.coords.first %>,<%= point.coords.last %>&fov=90&heading=34&pitch=10"> <%= link_to "#{point.street_address}, #{point.city.name}", point_path(point) %></strong> <%= (matchup.won?(@city) ? "beat" : "lost to") %> <img src ="https://maps.googleapis.com/maps/api/streetview?size=400x400&location=<%= competitor.coords.first %>,<%= competitor.coords.last %>&fov=90&heading=34&pitch=10"> <strong><%= link_to "#{competitor.street_address}, #{competitor.city.name}", point_path(competitor) %></strong>
     </li>
 
     <% end %>

@@ -6,7 +6,8 @@ Rails.application.routes.draw do
   resources :users
   get '/logout' => 'sessions#destroy', :as => :signout
  
-
+  resources :points
+  
   resources :cities do
     member do
       get :random

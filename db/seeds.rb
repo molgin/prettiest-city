@@ -75,6 +75,7 @@ city_1 = City.create(
     max_x: -73.700009,
     min_y: 40.477399,
     max_y: 40.917577,
+    state_id: state_1.id
   )
 
 city_2 = City.create(
@@ -84,12 +85,13 @@ city_2 = City.create(
     max_x: -122.28178,
     min_y: 37.639829999999996, 
     max_y: 37.929823999999996,
+    state_id: state_2.id
   )
 
-city_1.state = state_1
-city_1.save
-city_2.state = state_2
-city_2.save
+# city_1.state = state_1
+# city_1.save
+# city_2.state = state_2
+# city_2.save
 
 City.create_by_city_and_state(city: "Los Angeles", state: "California")
 City.create_by_city_and_state(city: "Chicago", state: "Illinois")

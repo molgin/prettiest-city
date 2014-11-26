@@ -28,7 +28,7 @@ class Point < ActiveRecord::Base
   end
 
   def image_link(width, height=width)
-    "https://maps.googleapis.com/maps/api/streetview?size=#{width}x#{height}&location=#{lat},#{long}&fov=90&heading=34&pitch=10"
+    "https://maps.googleapis.com/maps/api/streetview?size=#{width}x#{height}&location=#{lat},#{long}&fov=90&heading=34&pitch=10&key=#{ENV['STREET_VIEW_KEY']}"
   end
 
 end

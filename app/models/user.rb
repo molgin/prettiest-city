@@ -1,6 +1,7 @@
 class User < ActiveRecord::Base
-
   has_many :matchups
+  has_many :points, through: :matchups
+  has_many :cities, ->(city) { group("cities.id") }, through: :points
   
 
 
@@ -23,5 +24,18 @@ class User < ActiveRecord::Base
   #     puts "#{(City.find(city)).name}\t#{get_winning_cities.count(city)}"
   #   end
   # end
+
+  def cities_by_win_ratio
+    cities.sort_by{ |city| city.win_ratio_by_user(self) }.reverse
+  end
+
+  def has_matchups?
+    matchups.count > 0
+  end
+
+  def recent_matchups(num)
+    matchups.order(created_at: :desc).limit(num)
+  end
+
 
 end

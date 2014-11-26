@@ -1,9 +1,32 @@
 <h1><%= @user.name if @user.name %></h1>
 
-<h3><%= @user.name %>’s Most Voted Cities</h3>
 
+<% if @winning_cities %>
 <ul><% @winning_cities.uniq.each do |city| %>
   <li><%= (City.find(city)).name + " - " + @winning_cities.count(city).to_s %></li>
   <% end %>
 </ul>
+<% end %>
 
+<h2>My Cities</h2>
+<ul>
+<% @user.cities.each do |city| %>
+  <li>
+    <%= link_to city.full_name, city_path(city) %>
+  </li>
+<% end %>
+</ul>
+
+<h2>My Rankings</h2>
+
+<ol>
+
+  <% @user.cities_by_win_ratio.each do |city| %>
+
+    <li>
+      <strong><%= link_to city.full_name, city_path(city) %></strong><br>won <%= city.win_percentage_display_by_user(@user) %> of <%= city.total_by_user(@user) %> matchups
+    </li>
+
+  <% end %>
+
+</ol>

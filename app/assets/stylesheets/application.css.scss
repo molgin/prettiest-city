@@ -62,6 +62,25 @@ body {
   animation-delay: -1.0s;
 }
 
+div#chooser {
+
+  color: blue;
+}
+
+select.chooser {
+  background: transparent;
+  width: 268px;
+  padding: 5px;
+  font-size: 24px;
+  line-height: 1;
+  border: 2;
+  border-color: blue;
+  border-radius: 0;
+  // height: 34px;
+  text-align: center;
+  // -webkit-appearance: none;
+}
+
 @-webkit-keyframes bounce {
   0%, 100% { -webkit-transform: scale(0.0) }
   50% { -webkit-transform: scale(1.0) }

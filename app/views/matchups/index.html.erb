@@ -1,11 +1,11 @@
 <section class="container-fixed">
 <div id="chooser" class="center-block" style="margin-bottom: 10px;">
   <%= form_tag(matchups_path, method: "get", id: "matchup-chooser", class: "text-center") do %>
-    <select name="city_1" id="city-1" city-id="<%= @city_1.id %>" >
+    <select class="chooser" name="city_1" id="city-1" city-id="<%= @city_1.id %>" >
       <%= options_from_collection_for_select(City.all, :id, :full_name, @city_1.id) %>
     </select><br>
     vs.<br>
-    <select name="city_2" id="city-2" city-id="<%= @city_2.id %>" >
+    <select class="chooser" name="city_2" id="city-2" city-id="<%= @city_2.id %>" >
       <%= options_from_collection_for_select(City.all, :id, :full_name, @city_2.id) %>
     </select>
     <%= submit_tag "Go", class: "submit" %>

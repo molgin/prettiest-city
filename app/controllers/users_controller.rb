@@ -10,5 +10,10 @@ class UsersController < ApplicationController
     @winning_cities = @user.get_winning_cities
     #binding.pry
   end
+
+  def current
+    @user = current_user
+    render :show
+  end
   
 end

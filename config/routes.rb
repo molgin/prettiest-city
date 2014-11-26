@@ -13,6 +13,7 @@ Rails.application.routes.draw do
     end
   end
 
+  get "/dashboard", to: 'users#current'
   get "/random", to: "matchups#random"
   get "matchups/random", to: "matchups#random"
 

@@ -124,6 +124,44 @@ class City < ActiveRecord::Base
     "#{win_percentage_against(competitor)}%"
   end
 
+  def matchups_by_user(user)
+    matchups.where(user_id: user.id)
+  end
+
+  def winning_matchups_by_user(user)
+    matchups_by_user(user).where(winning_city: id)
+  end
+
+  def losing_matchups_by_user(user)
+    matchups_by_user(user).where(losing_city: id)
+  end
+
+  def wins_by_user(user)
+    winning_matchups_by_user(user).count
+  end
+
+  def losses_by_user(user)
+    losing_matchups_by_user(user).count
+  end
+
+  def total_by_user(user)
+    matchups_by_user(user).count
+  end
+
+  def win_ratio_by_user(user)
+    wins_by_user(user) / total_by_user(user).to_f
+  end
+
+  def win_percentage_by_user(user)
+    (win_ratio_by_user(user) * 100).round(1)
+  end
+
+  def win_percentage_display_by_user(user)
+    "#{win_percentage_by_user(user)}%"
+  end
+
+
+
   def competitors_by_win_ratio
     competitors.sort_by{ |competitor| win_ratio_against(competitor) }
   end
@@ -179,7 +217,6 @@ class City < ActiveRecord::Base
   def self.sort_by_win_ratio
     ranked.sort_by{ |city| city.win_ratio }.reverse
   end
-
 
 
 end

@@ -1,6 +1,6 @@
 <h1><%= @user.name if @user.name %></h1>
 
-<h3><%= @user.name %>'s Most Voted Cities</h3>
+<h3><%= @user.name %>’s Most Voted Cities</h3>
 
 <ul><% @winning_cities.uniq.each do |city| %>
   <li><%= (City.find(city)).name + " - " + @winning_cities.count(city).to_s %></li>

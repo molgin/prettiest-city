@@ -17,8 +17,6 @@ class MatchupsController < ApplicationController
     if current_user
       @matchup.user_id = current_user[:id]
     else
-      session[:matchups] ||= []
-      session[:matchups] << @matchup
       session[:matchup_ids] ||= []
       session[:matchup_ids] << @matchup.id
     end

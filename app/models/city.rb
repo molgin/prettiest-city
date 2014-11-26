@@ -129,16 +129,19 @@ class City < ActiveRecord::Base
   end
 
   def winning_point_ids
-    self.winning_matchups.collect do |m|
-      m.winning_point
-    end
+    winning_matchups.pluck(:winning_point)
   end
 
-  def get_winning_point_coords
-    all_coords = self.winning_point_ids.collect do |point|
-      Point.find(point).coords
-    end
-    all_coords.reverse #can limit number of images here
+  def winning_point_coords
+    winning_point_ids.map{ |point| Point.find(point).coords }
+  end
+
+  def losing_point_ids
+    losing_matchups.pluck(:losing_point)
+  end
+
+  def losing_point_coords
+    losing_point_ids.map{ |point| Point.find(point).coords }
   end
 
   def has_matchups?
@@ -151,6 +154,14 @@ class City < ActiveRecord::Base
 
   def recent_points(num)
     points.order(updated_at: :desc).limit(num)
+  end
+
+  def full_name
+    "#{name}, #{state.abbr}"
+  end
+
+  def center
+    [((min_y + max_y) / 2), ((min_x + max_x) / 2)]
   end
 
 

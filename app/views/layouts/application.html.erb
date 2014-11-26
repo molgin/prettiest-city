@@ -2,9 +2,10 @@
 <html>
 <head>
   <title>PrettiestCity</title>
+  <%= include_gon %>
   <%= stylesheet_link_tag    'application', media: 'all' %>
   <%= javascript_include_tag 'https://maps.googleapis.com/maps/api/js' %>
-  <%= javascript_include_tag 'application' %>
+  <%= javascript_include_tag 'application', params[:controller] %>
   <%= csrf_meta_tags %>
   <%= analytics_init if Rails.env.production? %>
 </head>
@@ -16,6 +17,8 @@
   <% else %>
     <%= link_to "Sign in with Facebook", "/auth/facebook" %>
   <% end %>
+  <%= link_to "Random", random_path %>
+  <%= link_to "Global Rankings", cities_path %>
 </div>
 
 <%= yield %>

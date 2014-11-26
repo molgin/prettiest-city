@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141125172011) do
+ActiveRecord::Schema.define(version: 20141125235044) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -25,6 +25,13 @@ ActiveRecord::Schema.define(version: 20141125172011) do
     t.float    "max_y"
     t.integer  "state_id"
     t.string   "slug"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "favorite_points", force: true do |t|
+    t.integer  "user_id"
+    t.integer  "point_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

@@ -1,6 +1,6 @@
 class CitiesController < ApplicationController
   def index
-    
+
   end
 
   def random
@@ -14,6 +14,9 @@ class CitiesController < ApplicationController
 
   def show
     @city = City.find(params[:id])
+    gon.winning_point_coords = @city.winning_point_coords
+    gon.losing_point_coords = @city.losing_point_coords
+    gon.center_coords = @city.center
   end
 
 end

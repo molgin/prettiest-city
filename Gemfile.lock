@@ -79,6 +79,11 @@ GEM
     formatador (0.2.5)
     geocoder (1.2.6)
     georuby (2.3.0)
+    gon (5.2.3)
+      actionpack (>= 2.3.0)
+      json
+      multi_json
+      request_store (>= 1.0.5)
     google-analytics-rails (0.0.6)
     guard (2.8.2)
       formatador (>= 0.2.4)
@@ -169,6 +174,7 @@ GEM
       ffi (>= 0.5.0)
     rdoc (4.1.2)
       json (~> 1.4)
+    request_store (1.1.0)
     rspec (3.1.0)
       rspec-core (~> 3.1.0)
       rspec-expectations (~> 3.1.0)
@@ -255,9 +261,10 @@ DEPENDENCIES
   database_cleaner
   dbf
   factory_girl_rails
-  geocoder
   figaro
+  geocoder
   georuby (>= 2.3.0)
+  gon
   google-analytics-rails
   guard-rspec
   jbuilder (~> 2.0)

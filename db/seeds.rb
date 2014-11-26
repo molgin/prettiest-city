@@ -56,7 +56,8 @@ states = {
   "Washington" => "WA",
   "West Virginia" => "WV",
   "Wisconsin" => "WI",
-  "Wyoming" => "WY"
+  "Wyoming" => "WY",
+  "District of Columbia" => "DC"
 }
 states.each do |name, abbreviation|
   unless State.where(:name => name).first

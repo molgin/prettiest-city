@@ -38,7 +38,7 @@ City.prototype.saveCoordinates = function(data) {
   $("#view-" + this.other + " input#matchup_losing_coords_lat").val(latitude);
   $("#view-" + this.other + " input#matchup_losing_coords_long").val(longitude);
 
-  $("#view-" + this.which + " div.spinner").remove();
+  // $("#view-" + this.which + " div.spinner").hide();
 }
 
 City.prototype.loadView = function() {

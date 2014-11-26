@@ -14,7 +14,14 @@ class MatchupsController < ApplicationController
     @city_1 = City.find(matchup_params[:city_1])
     @city_2 = City.find(matchup_params[:city_2])
     @matchup = Matchup.create(winning_city: matchup_params[:winning_city], losing_city: matchup_params[:losing_city])
-    @matchup.user_id = current_user[:id]
+    if current_user
+      @matchup.user_id = current_user[:id]
+    else
+      session[:matchups] ||= []
+      session[:matchups] << @matchup
+      session[:matchup_ids] ||= []
+      session[:matchup_ids] << @matchup.id
+    end
     @matchup.build_points_from_coords(matchup_params)
     respond_to do |format|
       format.html { redirect_to "/matchups/#{@city_1.id}/#{@city_2.id}" }

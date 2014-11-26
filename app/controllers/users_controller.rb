@@ -5,9 +5,19 @@ class UsersController < ApplicationController
   end
 
   def show
-    @user = User.find(params[:id])
+    if current_user
+      if params[:id] != current_user.id
+        redirect_to root_path
+      else
+        @user = current_user
+        @winning_cities = @user.get_winning_cities
+      end
+    else
+      redirect_to root_path
+    end
+    # @user = User.find(params[:id])
     #@matchups = @user.matchups
-    @winning_cities = @user.get_winning_cities
+    # @winning_cities = @user.get_winning_cities
     #binding.pry
   end
 

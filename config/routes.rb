@@ -1,13 +1,13 @@
 Rails.application.routes.draw do
 
-  root 'matchups#index'
+  root 'matchups#random'
   get '/auth/:provider/callback', to: 'sessions#create'
 
   resources :users
   get '/logout' => 'sessions#destroy', :as => :signout
  
   resources :points
-  
+
   resources :cities do
     member do
       get :random

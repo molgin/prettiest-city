@@ -95,3 +95,10 @@ select.chooser {
     -webkit-transform: scale(1.0);
   }
 }
+
+div#pano-1,
+div#pano-2 {
+  min-height:70vh; 
+  margin-bottom: 5px; 
+  border-radius: 15px;
+}

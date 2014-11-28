@@ -17,8 +17,11 @@ Rails.application.routes.draw do
   get "/dashboard", to: 'users#current'
   get "/random", to: "matchups#random"
   get "matchups/random", to: "matchups#random"
+  get "/comingsoon", to: 'cities#comingsoon'
 
   resources :matchups, param: 'first_id/:second_id'
+
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

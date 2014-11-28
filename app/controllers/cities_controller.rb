@@ -30,4 +30,8 @@ class CitiesController < ApplicationController
     # gon.max_y = @city.max_y
   end
 
+  def comingsoon
+    
+  end
+
 end

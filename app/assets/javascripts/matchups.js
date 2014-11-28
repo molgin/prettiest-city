@@ -2,6 +2,7 @@ function City(id, which){
   this.id = id;
   this.which = which;
   this.other = ( which === 1 ? 2 : 1 );
+  this.counter = 0;
 
   this.fetchCoordinates();
 }
@@ -22,7 +23,14 @@ City.prototype.checkStatus = function(data, status){
     this.loadView();
   }
   else {
-    this.fetchCoordinates();
+    this.counter += 1;
+    if (this.counter > 1000) {
+      // display an error message or something
+      // but at least it won't freeze your browser
+    }
+    else {
+      this.fetchCoordinates();
+    }
   }
 }
 

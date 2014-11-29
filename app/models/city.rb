@@ -163,7 +163,7 @@ class City < ActiveRecord::Base
 
 
   def competitors_by_win_ratio
-    competitors.sort_by{ |competitor| win_ratio_against(competitor) }
+    competitors.sort_by{ |competitor| win_ratio_against(competitor) }.reverse
   end
 
   def winning_point_ids

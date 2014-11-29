@@ -5,8 +5,8 @@
   <% if @city.has_matchups? %>
     <section class="row center-block">
 
-      <div class="col-md-1"></div>
-      <section id="stats" class="col-md-3">
+    
+      <section id="stats" class="col-md-2">
         <h2>Stats</h2>
         <ul>
           <li>Total Matches: <%= @city.total %></li>
@@ -15,6 +15,22 @@
           <br>
           <li>Record: <%= "#{@city.wins} — #{@city.losses}" %></li>
         </ul>
+      </section>
+
+      <section class="col-md-3">
+        <h2>Competitors</h2>
+
+        <h4><%= @city.name %> has won:</h4>
+        <ul>
+          <% @city.competitors_by_win_ratio.each do |competitor| %>
+            <li>
+              <%= @city.win_percentage_display_against(competitor) %> of <%= @city.total_against(competitor) %> matchups against <strong><%= link_to competitor.full_name, city_path(competitor) %></strong>
+            </li>
+
+          <% end %>
+        </ul>
+
+
       </section>
 
       <section id="map" class="col-md-6">

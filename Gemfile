@@ -42,6 +42,8 @@ gem 'georuby', '>= 2.3.0'
 gem 'dbf'
 gem 'geocoder'
 gem 'gon'
+gem 'gmaps4rails'
+gem 'underscore-rails'
 
 gem 'pg'
 

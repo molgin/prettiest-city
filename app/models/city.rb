@@ -170,6 +170,10 @@ class City < ActiveRecord::Base
     winning_matchups.pluck(:winning_point)
   end
 
+  def winning_points
+    points.where(id: winning_point_ids)
+  end
+
   def winning_point_coords
     winning_point_ids.map{ |point| Point.find(point).coords }
   end
@@ -178,8 +182,16 @@ class City < ActiveRecord::Base
     losing_matchups.pluck(:losing_point)
   end
 
+  def losing_points
+    points.where(id: losing_point_ids)
+  end
+
   def losing_point_coords
     losing_point_ids.map{ |point| Point.find(point).coords }
+  end
+
+  def all_coords
+    points.map{ |point| point.coords }
   end
 
   def has_matchups?

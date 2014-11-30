@@ -24,30 +24,53 @@ function initialize() {
     map.fitBounds(mapBounds);
   }
 
-  var winning_point_coords = gon.winning_point_coords
-  var losing_point_coords = gon.losing_point_coords
+  var winning_points = gon.winning_points
+  var losing_points = gon.losing_points
 
   var greenPinImage = new google.maps.MarkerImage("http://www.googlemapsmarkers.com/v1/009900/");
   var redPinImage = new google.maps.MarkerImage("http://www.googlemapsmarkers.com/v1/FF0000/");
 
+  var infowindow = new google.maps.InfoWindow();
 
-  for (var i = 0; i < winning_point_coords.length; i++) {
-    var latLong = new google.maps.LatLng(winning_point_coords[i][0], winning_point_coords[i][1])
+  for (point in winning_points) {
+    point = winning_points[point];
+    var latLong = new google.maps.LatLng(point.lat, point.long)
     var marker = new google.maps.Marker({
         position: latLong,
         icon: greenPinImage,
-        map: map
+        map: map,
+        infowindow: point.info_window
     });
+    var infowindow = new google.maps.InfoWindow({
+      content: point.info_window
+    });
+    google.maps.event.addListener(marker, 'click', (function(marker, i) {
+      return function() {
+        infowindow.setContent(this.infowindow);
+        infowindow.open(map, this);
+      }
+    })(marker));
     marker.setMap(map);
   }
 
-  for (var i = 0; i < losing_point_coords.length; i++) {
-    var latLong = new google.maps.LatLng(losing_point_coords[i][0], losing_point_coords[i][1])
+  for (point in losing_points) {
+    point = losing_points[point];
+    var latLong = new google.maps.LatLng(point.lat, point.long)
     var marker = new google.maps.Marker({
         position: latLong,
         icon: redPinImage,
-        map: map
+        map: map,
+        infowindow: point.info_window
     });
+    var infowindow = new google.maps.InfoWindow({
+      content: point.info_window
+    });
+    google.maps.event.addListener(marker, 'click', (function(marker, i) {
+      return function() {
+        infowindow.setContent(this.infowindow);
+        infowindow.open(map, this);
+      }
+    })(marker));
     marker.setMap(map);
   }
 

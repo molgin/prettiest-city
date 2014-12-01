@@ -2,6 +2,8 @@ class User < ActiveRecord::Base
   has_many :matchups
   has_many :points, through: :matchups
   has_many :cities, ->(city) { group("cities.id") }, through: :points
+  has_many :favorite_points
+  has_many :favorites, through: :favorite_points, class_name: 'Point'
   
 
 

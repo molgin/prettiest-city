@@ -186,16 +186,24 @@ class City < ActiveRecord::Base
     points.where(id: losing_point_ids)
   end
 
+  def competing_point_ids
+    winning_point_ids + losing_point_ids
+  end
+
+  def competing_points
+    points.where(id: competing_point_ids)
+  end
+
   def losing_point_coords
     losing_point_ids.map{ |point| Point.find(point).coords }
   end
 
   def all_coords
-    points.map{ |point| point.coords }
+    competing_points.map{ |point| point.coords }
   end
 
   def has_matchups?
-    matchups.count > 0
+    matchups.any?
   end
 
   def recent_matchups(num)
@@ -203,7 +211,7 @@ class City < ActiveRecord::Base
   end
 
   def recent_points(num)
-    points.order(updated_at: :desc).limit(num)
+    competing_points.order(updated_at: :desc).limit(num)
   end
 
   def full_name

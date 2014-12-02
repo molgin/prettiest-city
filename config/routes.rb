@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   get '/logout' => 'sessions#destroy', :as => :signout
  
   resources :points
+  post 'points/favorite', to: 'points#favorite'
 
   resources :cities do
     member do
@@ -16,7 +17,7 @@ Rails.application.routes.draw do
 
   get "/dashboard", to: 'users#current'
   get "/random", to: "matchups#random"
-  get "matchups/random", to: "matchups#random"
+  get "/matchups/random", to: "matchups#random"
 
   resources :matchups, param: 'first_id/:second_id'
 

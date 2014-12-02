@@ -12,8 +12,10 @@ class Matchup < ActiveRecord::Base
   end
 
   def build_points_from_coords(params)
-    winning_point_obj = points.build(lat: params[:winning_coords][:lat], long: params[:winning_coords][:long], city_id: params[:winning_city])
-    losing_point_obj = points.build(lat: params[:losing_coords][:lat], long: params[:losing_coords][:long], city_id: params[:losing_city])
+    winning_point_obj = Point.find_or_create_by(lat: params[:winning_coords][:lat], long: params[:winning_coords][:long], city_id: params[:winning_city])
+    points << winning_point_obj
+    losing_point_obj = Point.find_or_create_by(lat: params[:losing_coords][:lat], long: params[:losing_coords][:long], city_id: params[:losing_city])
+    points << losing_point_obj
     save
     self.winning_point = winning_point_obj.id
     self.losing_point = losing_point_obj.id

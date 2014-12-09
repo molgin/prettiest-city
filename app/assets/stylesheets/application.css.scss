@@ -17,7 +17,21 @@
  //= depend_on_asset "bootstrap/glyphicons-halflings-regular.ttf"
  //= depend_on_asset "bootstrap/glyphicons-halflings-regular.svg"
  */
+
+ // First import cerulean variables
+@import "bootswatch/cerulean/variables";
+
+// Then bootstrap itself
 @import "bootstrap";
+
+// Bootstrap body padding for fixed navbar
+// body { padding-top: 60px; }
+
+// And finally bootswatch style itself
+@import "bootswatch/cerulean/bootswatch";
+
+:focus {outline:0 !important;}
+
 /* Some Style from the Bootstrap Default Theme */
 body {
   // padding-top: 70px;
@@ -47,7 +61,7 @@ body {
   width: 100%;
   height: 100%;
   border-radius: 50%;
-  background-color: blue;
+  background-color: #1995dc;
   opacity: 0.6;
   position: absolute;
   top: 0;
@@ -64,22 +78,21 @@ body {
 
 div#chooser {
   margin-top: -10px;
-  color: blue;
+  color: #1995dc;
 }
 
-select.chooser {
-  background: transparent;
-  width: 268px;
-  padding: 5px;
-  font-size: 18px;
-  line-height: 1;
-  border: 2;
-  border-color: blue;
-  border-radius: 0;
-  // height: 34px;
-  text-align: center;
-  // -webkit-appearance: none;
-}
+// select.chooser {
+//   background: transparent;
+//   width: 268px;
+//   padding: 5px;
+//   font-size: 18px;
+//   line-height: 1;
+//   border: 2px solid #033c73;
+//   border-radius: 0;
+//   // height: 34px;
+//   text-align: center;
+//   // -webkit-appearance: none;
+// }
 
 @-webkit-keyframes bounce {
   0%, 100% { -webkit-transform: scale(0.0) }
@@ -101,4 +114,5 @@ div#pano-2 {
   min-height:70vh; 
   margin-bottom: 5px; 
   border-radius: 15px;
+  border: 1px solid #1995dc;
 }

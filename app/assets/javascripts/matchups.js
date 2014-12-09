@@ -86,6 +86,7 @@ $(function() {
   $("div.city-name").hide();
   enhanceMatchupChooser();
   maybeSwapViews();
+  addVoteListener();
   new City($("select#city-1").attr("city-id"), 1);
   new City($("select#city-2").attr("city-id"), 2);
 })
@@ -105,3 +106,9 @@ function enhanceMatchupChooser() {
   });
 }
 
+
+function addVoteListener() {
+  $("input.btn-primary").click(function(){
+    $("div.city-name").show();
+  })
+}

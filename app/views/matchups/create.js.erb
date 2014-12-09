@@ -1,11 +1,9 @@
-
-$("div.city-name").show();
 setTimeout(function(){
   $("div.city-name").fadeOut(400);
   setTimeout(function(){
     loadNewMatchup();
   }, 400);
-}, 1500);
+}, 1000);
 
 function loadNewMatchup() {
   var $pano1 = $("#pano-1")

@@ -87,6 +87,7 @@ City.prototype.loadView = function() {
 
 
 $(function() {
+  $("div.city-name").hide();
   enhanceMatchupChooser();
   maybeSwapViews();
   new City($("select#city-1").attr("city-id"), 1);

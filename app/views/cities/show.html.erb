@@ -5,14 +5,14 @@
   <% if @city.has_matchups? %>
 
   <section class="row center-block">
-    <% if user_ranking = @city.user_ranking(current_user) %>
+    <% if current_user && user_ranking = @city.user_ranking(current_user) %>
       <div class="col-md-3"></div>
-      <div class="col-md-3"><h2>Global Ranking: #<%= @city.ranking %></h2></div>
-      <div class="col-md-3"><h2>Your Ranking: #<%= user_ranking %></h2></div>
+      <div class="col-md-3"><h2 class="text-center">Global Ranking: #<%= @city.ranking %></h2></div>
+      <div class="col-md-3"><h2 class="text-center">Your Ranking: #<%= user_ranking %></h2></div>
       <div class="col-md-3"></div>
     <% else %>
       <div class="col-md-4"></div>
-      <div class="col-md-4"><h2>Global Ranking: #<%= @city.ranking %></h2></div>
+      <div class="col-md-4"><h2 class="text-center">Global Ranking: #<%= @city.ranking %></h2></div>
       <div class="col-md-4"></div>
     <% end %>
   </section>
@@ -55,22 +55,39 @@
       </section>
     </section>
     <section class="row center-block">
-      <div class="col-sm-1"></div>
-      <section id="recent-matchups" class="col-md-11">
-        <h2>Recent Matchups</h2>
-
-        <ul>
-
+      <section id="recent-matchups" class="col-md-12">
+        <h2 class="text-center">Recent Matchups</h2>
+        <hr>
           <% @city.recent_matchups(10).each do |matchup| %>
             <% point = matchup.point_by_city(@city) %>
             <% competitor = matchup.competitor(point) %>
-          <li>
-            <strong><%= image_tag point.image_link(200) %> <%= link_to "#{point.street_address}, #{point.city.name}", point_path(point) %></strong> <%= (matchup.won?(@city) ? "beat" : "lost to") %> <%= image_tag competitor.image_link(200) %> <strong><%= link_to "#{competitor.street_address}, #{competitor.city.name}", point_path(competitor) %></strong>
-          </li>
+            <div "row">
+              <div class="col-md-5">
+                <div class="panel panel-default">
+                  <div class="panel-body" style='background: url(<%= point.image_link(476, 357) %>) no-repeat center center; background-size: cover; height: 357px;'>
+                  </div>
+                  <div class="panel-footer"><%= link_to "#{point.street_address}, #{point.city.name}", point_path(point) %></div>
+                </div>
+              </div>
+              <div class="col-md-2 text-center">
+                  <% if matchup.won?(@city) %>
+                      <div class="outcome won">BEAT</div>
+                  <% else %>
+                      <div class="outcome lost">LOST TO</div>
+                  <% end %>
+              </div>
+              <div class="col-md-5">
+                <div class="panel panel-default">
+                  <div class="panel-body" style='background: url(<%= competitor.image_link(476, 357) %>) no-repeat center center; background-size: cover; height: 357px;'>
+                  </div>
+                  <div class="panel-footer"><%= link_to "#{competitor.street_address}, #{competitor.city.name}", point_path(competitor) %></div>
+                </div>
+              </div>
+            </div>
 
           <% end %>
 
-        </ul>
+        
       </section>
     </section>
 

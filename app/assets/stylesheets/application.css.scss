@@ -130,3 +130,20 @@ div.city-name {
 //   width: 100%;
 //   margin: 0 auto;
 // }
+
+div.outcome {
+  margin-top: 150px;
+  border: 5px solid;
+  height: 50px;
+  font-size: 2em;
+  border-radius: 3px;
+}
+
+div.outcome.won {
+  color: green;
+}
+
+div.outcome.lost {
+  color: red;
+}
+

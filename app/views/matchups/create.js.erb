@@ -1,9 +1,11 @@
 
 $("div.city-name").show();
 setTimeout(function(){
-  $("div.city-name").fadeOut(800);
-  loadNewMatchup();
-}, 2000);
+  $("div.city-name").fadeOut(400);
+  setTimeout(function(){
+    loadNewMatchup();
+  }, 400);
+}, 1500);
 
 function loadNewMatchup() {
   var $pano1 = $("#pano-1")
@@ -12,6 +14,7 @@ function loadNewMatchup() {
   $pano2.attr("style", "");
   $pano1.html("<%= j render 'spinner' %>");
   $pano2.html("<%= j render 'spinner' %>");
+  $("section#view-2").before($("section#view-1"));
 
   maybeSwapViews();
   new City($("select#city-1").attr("city-id"), 1);

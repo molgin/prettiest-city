@@ -222,8 +222,18 @@ class City < ActiveRecord::Base
     [((min_y + max_y) / 2), ((min_x + max_x) / 2)]
   end
 
+  def ranking
+    City.sort_by_win_ratio.each_with_index do |city, i|
+      return i + 1 if city == self
+    end
+  end
 
-
+  def user_ranking(user)
+    user.cities_by_win_ratio.each_with_index do |city, i|
+      return i + 1 if city == self
+    end
+    nil
+  end
 
 
 

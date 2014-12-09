@@ -3,6 +3,15 @@
   <h1 class="text-center"><%= @city.full_name %></h1>
 
   <% if @city.has_matchups? %>
+
+  <section class="row center-block">
+    <h2>Global Ranking: #<%= @city.ranking %></h2>
+    <% if user_ranking = @city.user_ranking(current_user) %>
+      <h2>Your Ranking: #<%= user_ranking %></h2>
+    <% end %>
+  </section>
+
+
     <section class="row center-block">
 
     

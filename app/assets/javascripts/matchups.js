@@ -25,8 +25,7 @@ City.prototype.checkStatus = function(data, status){
   else {
     this.counter += 1;
     if (this.counter > 1000) {
-      // display an error message or something
-      // but at least it won't freeze your browser
+      alert("Sorry, something went horribly wrong.");
     }
     else {
       this.fetchCoordinates();
@@ -45,12 +44,9 @@ City.prototype.saveCoordinates = function(data) {
 
   $("#view-" + this.other + " input#matchup_losing_coords_lat").val(latitude);
   $("#view-" + this.other + " input#matchup_losing_coords_long").val(longitude);
-
-  // $("#view-" + this.which + " div.spinner").hide();
 }
 
 City.prototype.loadView = function() {
-  // debugger;
 
   var lat = parseFloat($("#pano-" + this.which).attr("lat"));
   var long = parseFloat($("#pano-" + this.which).attr("long"));

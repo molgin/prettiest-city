@@ -19,36 +19,50 @@
 
 
     <section class="row center-block">
+      <section class="col-md-6">
+
 
     
-      <section id="stats" class="col-md-2">
-        <h2>Stats</h2>
-        <ul>
-          <li>Total Matches: <%= @city.total %></li>
-          <br>
-          <li>Winning Percentage: <%= @city.win_percentage_display %></li>
-          <br>
-          <li>Record: <%= "#{@city.wins} — #{@city.losses}" %></li>
-        </ul>
+        <section id="stats" class="col-md-5">
+
+          <div class="panel panel-primary" style="height: 450px;">
+            <div class="panel-heading">
+              <h2 class="panel-title">Stats</h2>
+            </div>
+            <div class="panel-body">
+                <p>Total Matches: <%= @city.total %></p>
+                <p>Winning Percentage: <%= @city.win_percentage_display %></p>
+                <p>Record: <%= "#{@city.wins} — #{@city.losses}" %></p>
+            </div>
+          </div>
+        </section>
+
+        <section class="col-md-7">
+
+          <div class="panel panel-primary" style="height: 450px; overflow: scroll;">
+            <div class="panel-heading">
+              <h2 class="panel-title">Competitors</h2>
+            </div>
+            <div class="panel-body">
+              <h4><%= @city.name %> has won:</h4>
+              <ul>
+                <% @city.competitors_by_win_ratio.each do |competitor| %>
+                  <li>
+                    <%= @city.win_percentage_display_against(competitor) %> of <%= @city.total_against(competitor) %> matchups against <strong><%= link_to competitor.full_name, city_path(competitor) %></strong>
+                  </li>
+
+                <% end %>
+              </ul>
+
+            </div>
+          </div>
+
+
+        </section>
+
       </section>
 
-      <section class="col-md-3">
-        <h2>Competitors</h2>
-
-        <h4><%= @city.name %> has won:</h4>
-        <ul>
-          <% @city.competitors_by_win_ratio.each do |competitor| %>
-            <li>
-              <%= @city.win_percentage_display_against(competitor) %> of <%= @city.total_against(competitor) %> matchups against <strong><%= link_to competitor.full_name, city_path(competitor) %></strong>
-            </li>
-
-          <% end %>
-        </ul>
-
-
-      </section>
-
-      <section id="map" class="col-md-6">
+      <section id="map" class="col-md-6" style="margin-top: -25px;">
         <div id="map-container" style="height: 450px; width: 600px; border-radius: 16px 16px; border-color: #fff; border-style: solid; box-shadow: 2px 2px 10px #B1B1B1; margin-top: 25px; border-width: 7px;">
           <div id="map-canvas" style="height: 436px; width: 100%;"></div>
         </div>

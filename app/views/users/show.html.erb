@@ -35,4 +35,41 @@
 
   </section>
 
+      <section class="row center-block">
+      <section id="recent-matchups" class="col-md-12">
+        <h2 class="text-center">Recent Matchups</h2>
+        <hr>
+          <% @user.recent_matchups(10).each do |matchup| %>
+            <% point = matchup.points.first %>
+            <% competitor = matchup.points.second %>
+            <div "row">
+              <div class="col-md-5">
+                <div class="panel panel-default">
+                  <div class="panel-body" style='background: url(<%= point.image_link(476, 357) %>) no-repeat center center; background-size: cover; height: 357px;'>
+                  </div>
+                  <div class="panel-footer"><%= link_to "#{point.street_address}, #{point.city.name}", point_path(point) %></div>
+                </div>
+              </div>
+              <div class="col-md-2 text-center">
+                  <% if matchup.won?(point.city) %>
+                      <div class="outcome won">BEAT</div>
+                  <% else %>
+                      <div class="outcome lost">LOST TO</div>
+                  <% end %>
+              </div>
+              <div class="col-md-5">
+                <div class="panel panel-default">
+                  <div class="panel-body" style='background: url(<%= competitor.image_link(476, 357) %>) no-repeat center center; background-size: cover; height: 357px;'>
+                  </div>
+                  <div class="panel-footer"><%= link_to "#{competitor.street_address}, #{competitor.city.name}", point_path(competitor) %></div>
+                </div>
+              </div>
+            </div>
+
+          <% end %>
+
+        
+      </section>
+    </section>
+
 </section>

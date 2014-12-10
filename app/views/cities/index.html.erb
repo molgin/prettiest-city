@@ -1,21 +1,35 @@
 <section class="container-fluid">
   <div class="col-md-1"></div>
+<div style="width: 100%">
+  <section id="rankings" class="center-block" style="width: 500px;">
 
-  <section id="rankings" class="center-block col-md-4">
+    <h1 class="text-center ">Global City Rankings</h1>
 
-    <h1>Global City Rankings</h1>
+  <table class="table table-striped table-hover">
+    <thead>
+      <tr>
+        <th>Ranking</th>
+        <th>City</th>
+        <th>Win %</th>
+        <th>Total Matchups</th>
+      </tr>
+    </thead>
+    <tbody>
 
-    <ol>
-
-    <% City.sort_by_win_ratio.each do |city| %>
-
-      <li>
-        <strong><%= link_to city.full_name, city_path(city) %></strong><br>won <%= city.win_percentage_display %> of <%= city.total %> matchups
-      </li>
+    <% City.sort_by_win_ratio.each_with_index do |city, i| %>
+      <tr>
+        <td><%= i + 1 %></td>
+        <td><%= link_to city.full_name, city_path(city) %></td>
+        <td><%= city.win_percentage_display %></td>
+        <td><%= city.total %></td>
+      </tr>
 
     <% end %>
 
-    </ol>
-  </section>
+      </tbody>
+    </table> 
 
+
+  </section>
+</div>
 </section>

@@ -5,7 +5,7 @@
   <%= include_gon %>
   <%= stylesheet_link_tag    'application', media: 'all' %>
   <%= javascript_include_tag "https://maps.googleapis.com/maps/api/js?key=#{ENV['STREET_VIEW_KEY']}" %>
-  <%= javascript_include_tag "http://google-maps-utility-library-v3.googlecode.com/svn/tags/markerclustererplus/2.0.14/src/markerclusterer_packed.js" %>
+  <%= javascript_include_tag "https://google-maps-utility-library-v3.googlecode.com/svn/tags/markerclustererplus/2.0.14/src/markerclusterer_packed.js" %>
   <%= javascript_include_tag 'application', params[:controller] %>
   <%= csrf_meta_tags %>
   <%= analytics_init if Rails.env.production? %>

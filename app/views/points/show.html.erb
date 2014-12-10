@@ -2,3 +2,17 @@
 
 <div id="map-canvas"></div>
 <div id="pano" style="min-height:75vh; width: 90%; margin-bottom: 5px; border-radius: 15px;" class="center-block"></div>
+
+<div class="center-block text-center" style="width:200px; margin-top: -100px;">
+    <% if @point.won? %>
+        <div class="outcome won">BEAT</div>
+    <% else %>
+        <div class="outcome lost">LOST TO</div>
+    <% end %>
+</div>
+
+<div class="panel panel-default center-block" style="width: 476px; margin-top: 50px;">
+  <div class="panel-body" style='background: url(<%= @point.competitor.image_link(476, 357) %>) no-repeat center center; background-size: cover; height: 357px;'>
+  </div>
+  <div class="panel-footer"><%= link_to "#{@point.competitor.street_address}, #{@point.competitor.city.name}", point_path(@point.competitor) %></div>
+</div>

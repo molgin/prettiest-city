@@ -26,7 +26,7 @@ class Point < ActiveRecord::Base
   end
 
   def competitor
-    competitors.last
+    counterpoints.last
   end
 
   def image_link(width, height=width)

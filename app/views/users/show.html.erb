@@ -44,7 +44,7 @@
               <tr>
                 <td><%= i + 1 %></td>
                 <td><%= link_to city.full_name, city_path(city) %></td>
-                <td><%= city.win_percentage_display %></td>
+                <td><%= city.win_percentage_display_by_user(@user) %></td>
                 <td><%= city.total %></td>
               </tr>
 

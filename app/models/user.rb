@@ -39,5 +39,9 @@ class User < ActiveRecord::Base
     matchups.order(created_at: :desc).limit(num)
   end
 
+  def cities_by_times_voted_on
+    cities.sort_by{ |city| city.total_by_user(self) }.reverse
+  end
+
 
 end

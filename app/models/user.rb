@@ -43,5 +43,9 @@ class User < ActiveRecord::Base
     cities.sort_by{ |city| city.total_by_user(self) }.reverse
   end
 
+  def city_combos
+    cities.product(cities).reject{ |combo| combo[0] == combo[1] }.map{ |combo| combo.sort }.uniq
+  end
+
 
 end

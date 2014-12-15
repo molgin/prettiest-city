@@ -19,11 +19,12 @@ City.prototype.coordinatesValid = function(coordinates){
 
 City.prototype.checkStatus = function(data, status){
   if(status === google.maps.StreetViewStatus.OK){
+    // console.log(status);
     this.saveCoordinates(data);
     this.loadView();
   }
   else {
-    this.counter += 1;
+    this.counter++;
     if (this.counter > 1000) {
       alert("Sorry, something went horribly wrong.");
     }
@@ -34,7 +35,7 @@ City.prototype.checkStatus = function(data, status){
 }
 
 City.prototype.saveCoordinates = function(data) {
-  var longitude = data.location.latLng.B;
+  var longitude = data.location.latLng.D;
   var latitude = data.location.latLng.k;
   $("#pano-" + this.which).attr("long", longitude);
   $("#pano-" + this.which).attr("lat", latitude);
@@ -56,7 +57,6 @@ City.prototype.loadView = function() {
     center: point,
     zoom: 14
   };
-
   var map = new google.maps.Map(
       $('#map-canvas-' + this.which)[0], mapOptions);
 

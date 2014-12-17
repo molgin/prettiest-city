@@ -35,8 +35,8 @@ City.prototype.checkStatus = function(data, status){
 }
 
 City.prototype.saveCoordinates = function(data) {
-  var longitude = data.location.latLng.D;
-  var latitude = data.location.latLng.k;
+  var longitude = data.location.latLng.lng();
+  var latitude = data.location.latLng.lat();
   $("#pano-" + this.which).attr("long", longitude);
   $("#pano-" + this.which).attr("lat", latitude);
 

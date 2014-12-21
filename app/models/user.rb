@@ -47,5 +47,8 @@ class User < ActiveRecord::Base
     cities.product(cities).reject{ |combo| combo[0] == combo[1] }.map{ |combo| combo.sort }.uniq
   end
 
+  def combo_count(city_1, city_2)
+    matchups.where(winning_city: city_1.id, losing_city: city_2.id).count +     matchups.where(winning_city: city_2.id, losing_city: city_1.id).count
+  end
 
 end

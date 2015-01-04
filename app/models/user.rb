@@ -43,12 +43,20 @@ class User < ActiveRecord::Base
     cities.sort_by{ |city| city.total_by_user(self) }.reverse
   end
 
-  def city_combos
+  def all_possible_city_combos
     cities.product(cities).reject{ |combo| combo[0] == combo[1] }.map{ |combo| combo.sort }.uniq
   end
 
+  def city_combos
+    all_possible_city_combos.reject { |city_1, city_2| combo_count(city_1, city_2) == 0 }
+  end
+
   def combo_count(city_1, city_2)
-    matchups.where(winning_city: city_1.id, losing_city: city_2.id).count +     matchups.where(winning_city: city_2.id, losing_city: city_1.id).count
+    matchups.where(winning_city: city_1.id, losing_city: city_2.id).count + matchups.where(winning_city: city_2.id, losing_city: city_1.id).count
+  end
+
+  def city_combos_by_votes
+    city_combos.sort_by { |city_1, city_2| combo_count(city_1, city_2) }.reverse
   end
 
 end

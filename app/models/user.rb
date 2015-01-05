@@ -59,4 +59,8 @@ class User < ActiveRecord::Base
     city_combos.sort_by { |city_1, city_2| combo_count(city_1, city_2) }.reverse
   end
 
+  def top_city_combos(num)
+    city_combos_by_votes[0..num-1]
+  end
+
 end

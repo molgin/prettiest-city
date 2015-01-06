@@ -4,6 +4,7 @@ class City < ActiveRecord::Base
   has_many :competitors, ->(city) { where.not(id: city.id).group("cities.id") }, through: :matchups, class_name: "City", source: :cities
   belongs_to :state
   before_save :set_slug
+  validates_presence_of :name
 
   attr_accessor :multipolygon
 

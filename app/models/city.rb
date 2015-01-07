@@ -5,6 +5,7 @@ class City < ActiveRecord::Base
   belongs_to :state
   before_save :set_slug
   validates_presence_of :name
+  validates_uniqueness_of :name, scope: :state
 
   attr_accessor :multipolygon
 

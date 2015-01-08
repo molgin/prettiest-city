@@ -37,31 +37,6 @@ class City < ActiveRecord::Base
     @multipolygon = GeoRuby::SimpleFeatures::MultiPolygon.from_coordinates(multipolygon_json["coordinates"])
   end
 
-  def self.create_by_city_and_state(args)
-    state_folder = Dir[Rails.root + "lib/assets/shapefiles/*"].find do |filename|
-      filename.downcase.include? args[:state].downcase
-    end
-    state_shapefile = Dir[state_folder + "/*"].find { |filename| filename.end_with? "shp" }
-
-    GeoRuby::Shp4r::ShpFile.open(state_shapefile) do |shp|
-      city = shp.find { |city| city.data.name.downcase == args[:city].downcase || ( city.data.name.downcase.end_with?("(balance)") && city.data.name.downcase.start_with?(args[:city].downcase) ) }
-      return "City not found" if !city
-      if city.data.name.downcase.end_with? "(balance)"
-        new_city = City.create(name: args[:city])
-      else
-        new_city = City.create(name: city.data.name)
-      end
-      new_city.multipolygon_json = city.geometry.to_json
-      xes = city.geometry.bounding_box.map { |point| point.x }
-      ys = city.geometry.bounding_box.map { |point| point.y }
-      new_city.min_x, new_city.max_x = xes.sort
-      new_city.min_y, new_city.max_y = ys.sort
-      new_city.state = State.find_by(name: args[:state])
-      new_city.save
-    end
-    last
-  end
-
   def winning_matchups
     matchups.where(winning_city: id)
   end
@@ -241,6 +216,30 @@ class City < ActiveRecord::Base
 
 
 
+  def self.create_by_city_and_state(args)
+    state_folder = Dir[Rails.root + "lib/assets/shapefiles/*"].find do |filename|
+      filename.downcase.include? args[:state].downcase
+    end
+    state_shapefile = Dir[state_folder + "/*"].find { |filename| filename.end_with? "shp" }
+
+    GeoRuby::Shp4r::ShpFile.open(state_shapefile) do |shp|
+      city = shp.find { |city| city.data.name.downcase == args[:city].downcase || ( city.data.name.downcase.end_with?("(balance)") && city.data.name.downcase.start_with?(args[:city].downcase) ) }
+      return "City not found" if !city
+      if city.data.name.downcase.end_with? "(balance)"
+        new_city = City.create(name: args[:city])
+      else
+        new_city = City.create(name: city.data.name)
+      end
+      new_city.multipolygon_json = city.geometry.to_json
+      xes = city.geometry.bounding_box.map { |point| point.x }
+      ys = city.geometry.bounding_box.map { |point| point.y }
+      new_city.min_x, new_city.max_x = xes.sort
+      new_city.min_y, new_city.max_y = ys.sort
+      new_city.state = State.find_by(name: args[:state])
+      new_city.save
+    end
+    last
+  end
 
   def self.ranked
     joins(:matchups).group("cities.id")

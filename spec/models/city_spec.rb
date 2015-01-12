@@ -60,6 +60,22 @@ RSpec.describe City, :type => :model do
 
     end
 
+    describe "#random_point_in_box" do
+
+      it "returns a point within the bounding box" do
+        x, y = city.random_point_in_box
+        expect(x).to be_between(city.min_x, city.max_x)
+        expect(y).to be_between(city.min_y, city.max_y)
+      end
+
+      it "is different each time" do
+        point1 = city.random_point_in_box
+        point2 = city.random_point_in_box
+        expect(point1).to_not eq(point2)
+      end
+
+    end
+
   end
 
 end

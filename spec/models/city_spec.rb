@@ -76,6 +76,22 @@ RSpec.describe City, :type => :model do
 
     end
 
+    describe "#random_coords" do
+
+      it "returns a point within the polygon" do
+        point = GeoRuby::SimpleFeatures::Point.new
+        point.x, point.y = city.random_coords
+        expect(city.make_multipolygon.contains_point?(point)).to be true
+      end
+
+      it "is different each time" do
+        point1 = city.random_coords
+        point2 = city.random_coords
+        expect(point1).to_not eq(point2)
+      end
+
+    end
+
   end
 
 end

@@ -23,8 +23,8 @@ class City < ActiveRecord::Base
     loop do
       point = GeoRuby::SimpleFeatures::Point.new
       point.x, point.y = random_point_in_box
-      puts point.to_coordinates
-      puts multipolygon.contains_point? point
+      # puts point.to_coordinates
+      # puts multipolygon.contains_point? point
       return point.to_coordinates if multipolygon.contains_point? point
     end
   end

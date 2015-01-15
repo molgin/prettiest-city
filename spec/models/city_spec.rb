@@ -92,6 +92,22 @@ RSpec.describe City, :type => :model do
 
     end
 
+    describe "#random_point" do
+
+      it "returns a point object" do
+        point = city.random_point
+        expect(point).to be_a(Point)
+      end
+
+      it "is different each time" do
+        point1 = city.random_point
+        point2 = city.random_point
+        expect(point1.lat).to_not eq(point2.lat)
+        expect(point1.long).to_not eq(point2.long)
+      end      
+
+    end
+
   end
 
 end

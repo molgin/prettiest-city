@@ -241,8 +241,17 @@ class City < ActiveRecord::Base
     last
   end
 
+  def self.winners
+    joins("INNER JOIN matchups ON matchups.winning_city = cities.id").group("cities.id")
+  end
+
+  def self.losers
+    joins("INNER JOIN matchups ON matchups.losing_city = cities.id").group("cities.id")
+  end
+
+
   def self.ranked
-    joins(:matchups).group("cities.id")
+    (winners + losers).uniq(&:id)
   end
 
   def self.sort_by_win_ratio

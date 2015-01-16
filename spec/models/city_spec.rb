@@ -28,7 +28,7 @@ RSpec.describe City, :type => :model do
 
   context "instance methods" do
 
-    let(:state) { State.create(name: "New York", abbr: "NY")}
+    let(:state) { State.create(name: "New York", abbr: "NY") }
 
     let(:city) { City.create(
     name: "New York",
@@ -38,7 +38,7 @@ RSpec.describe City, :type => :model do
     min_y: 40.477399,
     max_y: 40.917577,
     state_id: state.id
-  )}
+  ) }
 
     describe "#make_multipolygon" do
 
@@ -105,6 +105,35 @@ RSpec.describe City, :type => :model do
         expect(point1.lat).to_not eq(point2.lat)
         expect(point1.long).to_not eq(point2.long)
       end      
+
+    end
+
+  end
+
+  context "class methods" do
+
+    describe "::ranked" do
+
+      it "includes cities that have been involved in at least one matchup" do
+        state = State.create(name: "California", abbr: "CA")
+        city1 = City.create(name: "San Francisco", state_id: state.id)
+        city2 = City.create(name: "Los Angeles", state_id: state.id)
+        city3 = City.create(name: "San Diego", state_id: state.id)
+        matchup = Matchup.create(winning_point: 1, losing_point: 2, winning_city: city1.id, losing_city: city2.id)
+        ranked_cities = City.ranked
+        expect(ranked_cities).to include(city1)
+        expect(ranked_cities).to include(city2)
+      end
+
+      it "does not include cities that have not been involved in any matchups" do
+        state = State.create(name: "California", abbr: "CA")
+        city1 = City.create(name: "San Francisco", state_id: state.id)
+        city2 = City.create(name: "Los Angeles", state_id: state.id)
+        city3 = City.create(name: "San Diego", state_id: state.id)
+        matchup = Matchup.create(winning_point: 1, losing_point: 2, winning_city: city1.id, losing_city: city2.id)
+        ranked_cities = City.ranked
+        expect(ranked_cities).to_not include(city3)
+      end
 
     end
 

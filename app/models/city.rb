@@ -252,6 +252,8 @@ class City < ActiveRecord::Base
 
   def self.ranked
     (winners + losers).uniq(&:id)
+    
+    # self.all.select{ |city| city.matchups.any? }
   end
 
   def self.sort_by_win_ratio

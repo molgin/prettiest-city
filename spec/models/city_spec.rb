@@ -112,27 +112,32 @@ RSpec.describe City, :type => :model do
 
   context "class methods" do
 
-    describe "::ranked" do
+    context "scopes" do
 
-      it "includes cities that have been involved in at least one matchup" do
-        state = State.create(name: "California", abbr: "CA")
-        city1 = City.create(name: "San Francisco", state_id: state.id)
-        city2 = City.create(name: "Los Angeles", state_id: state.id)
-        city3 = City.create(name: "San Diego", state_id: state.id)
-        matchup = Matchup.create(winning_point: 1, losing_point: 2, winning_city: city1.id, losing_city: city2.id)
-        ranked_cities = City.ranked
-        expect(ranked_cities).to include(city1)
-        expect(ranked_cities).to include(city2)
+      before :all do
+        @state = State.create(name: "California", abbr: "CA")
+        @city1 = City.create(name: "San Francisco", state_id: @state.id)
+        @city2 = City.create(name: "Los Angeles", state_id: @state.id)
+        @city3 = City.create(name: "San Diego", state_id: @state.id)
+        @matchup = Matchup.create(winning_point: 1, losing_point: 2, winning_city: @city1.id, losing_city: @city2.id)
+        # long1, lat1 = @city1.random_coords
+        # long2, lat2 = @city2.random_coords
+        # @matchup = Matchup.build_points_from_coords(winning_coords: {lat: lat1, long: long1}, losing_coords: {lat: lat2, long: long2}, winning_city: @city1.id, losing_city: @city2.id)
       end
 
-      it "does not include cities that have not been involved in any matchups" do
-        state = State.create(name: "California", abbr: "CA")
-        city1 = City.create(name: "San Francisco", state_id: state.id)
-        city2 = City.create(name: "Los Angeles", state_id: state.id)
-        city3 = City.create(name: "San Diego", state_id: state.id)
-        matchup = Matchup.create(winning_point: 1, losing_point: 2, winning_city: city1.id, losing_city: city2.id)
-        ranked_cities = City.ranked
-        expect(ranked_cities).to_not include(city3)
+      describe "::ranked" do
+
+        it "includes cities that have been involved in at least one matchup" do
+          ranked_cities = City.ranked
+          expect(ranked_cities).to include(@city1)
+          expect(ranked_cities).to include(@city2)
+        end
+
+        it "does not include cities that have not been involved in any matchups" do
+          ranked_cities = City.ranked
+          expect(ranked_cities).to_not include(@city3)
+        end
+
       end
 
     end

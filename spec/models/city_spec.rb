@@ -108,6 +108,35 @@ RSpec.describe City, :type => :model do
 
     end
 
+    context "matchups" do
+
+      before :all do
+        @state = State.create(name: "California", abbr: "CA")
+        @city1 = City.create(name: "San Francisco", state_id: @state.id)
+        @city2 = City.create(name: "Los Angeles", state_id: @state.id)
+        @city3 = City.create(name: "San Diego", state_id: @state.id)
+        @matchup1 = Matchup.create(winning_point: 1, losing_point: 2, winning_city: @city1.id, losing_city: @city2.id)
+        @matchup2 = Matchup.create(winning_point: 3, losing_point: 4, winning_city: @city2.id, losing_city: @city1.id)
+      end
+
+      describe "#winning_matchups" do
+
+        it "returns winning matchups" do
+          expect(@city1.winning_matchups).to include(@matchup1)
+        end
+
+        it "doesn't return losing matchups" do
+          expect(@city1.winning_matchups).to_not include(@matchup2)
+        end
+
+        it "returns every winning matchup" do
+          expect(@city1.winning_matchups.count).to eq(1)
+        end
+
+      end
+
+    end
+
   end
 
   context "class methods" do

@@ -171,6 +171,17 @@ RSpec.describe City, :type => :model do
 
     end
 
+    describe "::create_by_city_and_state" do
+
+      it "returns 'City not found' if city is not in shapefiles" do
+        city = City.create_by_city_and_state(city: "Republic City", state: "California")
+        expect(city).to eq("City not found")
+      end
+
+
+    end
+
+
   end
 
 end

@@ -178,6 +178,11 @@ RSpec.describe City, :type => :model do
         expect(city).to eq("City not found")
       end
 
+      it "returns a new city with the appropriate name" do
+        city = City.create_by_city_and_state(city: "Anchorage", state: "Alaska")
+        expect(city.name).to eq("Anchorage")
+      end
+
 
     end
 

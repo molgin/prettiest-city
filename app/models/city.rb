@@ -224,6 +224,7 @@ class City < ActiveRecord::Base
 
     GeoRuby::Shp4r::ShpFile.open(state_shapefile) do |shp|
       city = shp.find { |city| city.data.name.downcase == args[:city].downcase || ( city.data.name.downcase.end_with?("(balance)") && city.data.name.downcase.start_with?(args[:city].downcase) ) }
+      # binding.pry
       return "City not found" if !city
       if city.data.name.downcase.end_with? "(balance)"
         new_city = City.create(name: args[:city])

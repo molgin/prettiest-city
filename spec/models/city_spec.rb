@@ -183,6 +183,13 @@ RSpec.describe City, :type => :model do
         expect(city.name).to eq("Anchorage")
       end
 
+      it "returns a new city with json geometry" do
+        city = City.create_by_city_and_state(city: "Anchorage", state: "Alaska")
+        expect(city.multipolygon_json).to be_a Hash
+        expect(city.multipolygon_json["coordinates"]).to_not be_empty
+      end
+
+
 
     end
 

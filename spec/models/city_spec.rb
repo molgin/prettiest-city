@@ -194,6 +194,14 @@ RSpec.describe City, :type => :model do
         expect(city.state.name).to eq("Alaska")
       end
 
+      it "returns a city with a bounding box" do
+        city = City.create_by_city_and_state(city: "Anchorage", state: "Alaska")
+        expect(city.min_x).to be_a Float
+        expect(city.max_x).to be_a Float
+        expect(city.min_y).to be_a Float
+        expect(city.max_y).to be_a Float
+      end
+
 
     end
 

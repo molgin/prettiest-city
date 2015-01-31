@@ -39,7 +39,7 @@ class MatchupsController < ApplicationController
   end
 
   def random
-    ids = (1..City.count).to_a
+    ids = City.pluck(:id)
     city_1_id = ids.sample
     city_2_id = (ids - [city_1_id]).sample
     redirect_to "/matchups/#{city_1_id}/#{city_2_id}"

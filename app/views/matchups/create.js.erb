@@ -6,21 +6,40 @@ setTimeout(function(){
 }, 500);
 
 function loadNewMatchup() {
-  var $pano1 = $("#pano-1")
-  var $pano2 = $("#pano-2")
+  var $pano1 = $("#pano-1");
+  var $pano2 = $("#pano-2");
   $pano1.attr("style", "");
   $pano2.attr("style", "");
   $pano1.html("<%= j render 'spinner' %>");
   $pano2.html("<%= j render 'spinner' %>");
   $("section#view-2").before($("section#view-1"));
-
+  if (<%= @random %>) {
+    updateCities();
+  }
   maybeSwapViews();
-  new City($("select#city-1").attr("city-id"), 1);
-  new City($("select#city-2").attr("city-id"), 2);
+  new City($("section#view-1").attr("city-id"), 1);
+  new City($("section#view-2").attr("city-id"), 2);
 }
 
 function maybeSwapViews() {
   if (Math.floor(Math.random() * 2)) {
     $("section#view-1").before($("section#view-2"));
   }
+}
+
+function updateCities() {
+  var $view1 = $("#view-1");
+  var $view2 = $("#view-2");
+  $view1.attr("city-id", "<%= @city_1.id %>");
+  $view2.attr("city-id", "<%= @city_2.id %>");
+  $view1.find(".alert").html("This was <strong><%= @city_1.full_name %>.</strong>")
+  $view2.find(".alert").html("This was <strong><%= @city_2.full_name %>.</strong>")
+  $view1.find("#matchup_city_1").val("<%= @city_1.id %>");
+  $view1.find("#matchup_city_2").val("<%= @city_2.id %>");
+  $view1.find("#matchup_winning_city").val("<%= @city_1.id %>");
+  $view1.find("#matchup_losing_city").val("<%= @city_2.id %>");
+  $view2.find("#matchup_city_1").val("<%= @city_1.id %>");
+  $view2.find("#matchup_city_2").val("<%= @city_2.id %>");
+  $view2.find("#matchup_winning_city").val("<%= @city_2.id %>");
+  $view2.find("#matchup_losing_city").val("<%= @city_1.id %>");
 }

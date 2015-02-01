@@ -87,8 +87,8 @@ $(function() {
   enhanceMatchupChooser();
   maybeSwapViews();
   addVoteListener();
-  new City($("select#city-1").attr("city-id"), 1);
-  new City($("select#city-2").attr("city-id"), 2);
+  new City($("section#view-1").attr("city-id"), 1);
+  new City($("section#view-2").attr("city-id"), 2);
 })
 
 function maybeSwapViews() {

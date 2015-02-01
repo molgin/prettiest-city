@@ -1,4 +1,4 @@
-<section class="container-fixed">
+<!-- <section class="container-fixed">
 <div id="chooser" class="center-block" style="margin-bottom: 10px;">
   <%= form_tag(matchups_path, method: "get", id: "matchup-chooser", class: "text-center") do %>
     <select class="chooser btn btn-primary" name="city_1" id="city-1" city-id="<%= @city_1.id %>" >
@@ -11,7 +11,7 @@
     <%= submit_tag "Go", class: "submit" %>
   <% end %>
 </div>
-</section>
+</section> -->
 
 
 
@@ -20,7 +20,7 @@
 
 <div id="map-canvas-2"></div>
 
-<section class="container-fluid">
+<section class="container-fluid" style="margin-top: 60px;">
 
   <section class="views" class="row">
 
@@ -28,7 +28,7 @@
       <div class="row city-name-wrapper">
         <div class="col-md-3"></div>
         <div class="bs-component col-md-6 city-name">
-          <div class="alert alert-info">This was <strong><%= @city_1.name %>.</strong>
+          <div class="alert alert-info">This was <strong><%= @city_1.full_name %>.</strong>
           </div>
         </div>
         <div class="col-md-3"></div>
@@ -54,7 +54,7 @@
           <%= lf.hidden_field :lat %>
           <%= lf.hidden_field :long %>
         <% end %>
-        <%= f.hidden_field :random, {value: 0} %>
+        <%= f.hidden_field :random, {value: 1} %>
         <%= f.submit "Vote", {class: "center-block btn btn-lg btn-primary"} %>
       <% end %>
 
@@ -64,7 +64,7 @@
       <div class="row city-name-wrapper">
         <div class="col-md-3"></div>
         <div class="bs-component col-md-6 city-name">
-          <div class="alert alert-info">This was <strong><%= @city_2.name %>.</strong>
+          <div class="alert alert-info">This was <strong><%= @city_2.full_name %>.</strong>
           </div>
         </div>
         <div class="col-md-3"></div>
@@ -90,7 +90,7 @@
           <%= lf.hidden_field :lat %>
           <%= lf.hidden_field :long %>
         <% end %>
-        <%= f.hidden_field :random, {value: 0} %>
+        <%= f.hidden_field :random, {value: 1} %>
         <%= f.submit "Vote", {class: "center-block btn btn-lg btn-primary"} %>
       <% end %>
 

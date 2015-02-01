@@ -17,6 +17,7 @@ Rails.application.routes.draw do
 
   get "/dashboard", to: 'users#current'
   get "/random", to: "matchups#random"
+  get "/true-random", to: "matchups#true_random"
   get "/matchups/random", to: "matchups#random"
 
   resources :matchups, param: 'first_id/:second_id'

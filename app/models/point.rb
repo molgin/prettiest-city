@@ -5,6 +5,7 @@ class Point < ActiveRecord::Base
   has_many :counterpoints, ->(point) { where.not id: point.id }, through: :matchups, class_name: "Point", source: :points
   has_many :favorite_points
   has_many :favoriters, through: :favorite_points, class_name: "User"
+  validates_presence_of :lat, :long, :city_id
 
   reverse_geocoded_by :lat, :long do |obj,results|
     if geo = results.first

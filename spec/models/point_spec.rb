@@ -11,4 +11,15 @@ RSpec.describe Point, :type => :model do
     point.valid?
     expect(point.errors[:lat]).to include("can't be blank")
   end
+
+  it "is valid with a longitude" do
+    point = Point.create(lat: 40.763991, long: -73.827525, city_id: 1)
+    expect(point).to be_valid
+  end
+
+  it "is invalid without a longitude" do
+    point = Point.create
+    point.valid?
+    expect(point.errors[:long]).to include("can't be blank")
+  end
 end
